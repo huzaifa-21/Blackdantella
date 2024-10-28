@@ -1,0 +1,18 @@
+.navbar {
+    border-bottom: 1px solid $hrColor;
+    padding: 10;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+    }
+    .welcome {
+      h2 {
+        margin-top: -10px;
+        color: $mainColor;
+        text-shadow: 0px 0px 5px $mainColor;
+      }
+    }
+  }
+}

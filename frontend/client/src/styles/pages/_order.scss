@@ -1,0 +1,62 @@
+.order {
+  display: flex;
+  margin: 15px 30px;
+  padding: 30px 20px 0;
+  // gap: 100px;
+  @media (max-width:576px) {
+    margin: 0;
+    padding: 20px 0 0;
+    button {
+      width: 100% !important;
+    }
+  }
+  .profile {
+    margin-top: 0 !important;
+    button {
+      display: none !important;
+    }
+  }
+  .delivery-head,
+  .payment-head {
+    color: $mainColor;
+  }
+  .delivery-information {
+    @extend .profile;
+    // width: 50% !important;
+    input.main-button {
+      margin-top: 2px !important;
+    }
+  }
+  .payment-check {
+    // width: 50%;
+    .payment-head {
+      margin-bottom: 30px;
+    }
+    > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      span {
+        color: $paragraphColor;
+      }
+      &:last-of-type {
+        font-weight: bold;
+      }
+      &:not(:last-of-type) {
+        border-bottom: 1px solid $hrColor;
+      }
+    }
+    button {
+      width: fit-content;
+      margin-top: 30px;
+      border-radius: 3px;
+      transition-duration: $mainTransition;
+      text-transform: uppercase;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+  }
+}

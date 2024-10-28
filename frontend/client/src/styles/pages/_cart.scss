@@ -1,0 +1,135 @@
+.cart {
+  .container {
+    margin-top: 100px;
+    color: $whiteColor;
+    // padding: 0 50px;
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
+    @media (max-width: 576px) {
+      font-size: 14px;
+      .cart-title {
+        font-size: 16px;
+      }
+    }
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 30px;
+      border-bottom: 1px solid $hrColor;
+      border-top: 1px solid $hrColor;
+      .cart-title {
+        margin: 0;
+      }
+      a {
+        text-decoration: none;
+        width: fit-content;
+        border-radius: 25px;
+        @media (max-width: 576px) {
+          padding: 10px;
+          font-size: 12px;
+        }
+      }
+    }
+    .items-container {
+      margin: 30px;
+      .item-box {
+        &:nth-child(odd) {
+          background-color: $cardBackground;
+        }
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        gap: 30px;
+        img {
+          width: 70px;
+          height: 70px;
+        }
+        .info-remove {
+          flex: 1;
+          span {
+            display: block;
+          }
+          .item-name {
+            margin-bottom: 15px;
+          }
+          .remove-button {
+            text-decoration: underline;
+            color: $outStock;
+            cursor: pointer;
+            width: fit-content;
+          }
+        }
+        > div {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          @media (max-width: 576px) {
+            flex-direction: column;
+          }
+          .item-info {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            justify-content: center;
+            @media (max-width: 576px) {
+              gap: 15px;
+            }
+            .item-size {
+            }
+            .item-quantity {
+              position: relative;
+              border: 1px solid $borderColor;
+              width: 35px;
+              height: 35px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              svg {
+                position: absolute;
+                // display: none;
+                font-size: 15px;
+                cursor: pointer;
+                color: $mainColor;
+              }
+              .increment-quantity {
+                right: 45px;
+                // color: red;
+              }
+              .decrement-quantity {
+                left: 45px;
+              }
+            }
+            .item-price {
+              // margin-left: 20px;
+              width: 50px;
+            }
+            .item-color {
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              margin-right: 20px;
+              animation: glowing alternate infinite 1.5s;
+            }
+          }
+        }
+      }
+    }
+    .total {
+      display: block;
+      margin-left: auto;
+      width: fit-content;
+      margin-right: 30px;
+    }
+    .check {
+      display: block;
+      margin: 40px auto;
+      width: fit-content;
+      text-decoration: none;
+    }
+  }
+}

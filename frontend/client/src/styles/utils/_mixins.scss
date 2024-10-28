@@ -1,0 +1,20 @@
+@mixin balls($top, $bottom) {
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    box-shadow: 0 0 200px 70px $ballsColor;
+    z-index: 1;
+  }
+  &::before {
+    left: -50px;
+    bottom: #{$bottom}px;
+  }
+  &::after {
+    right: -50px;
+    top: #{$top}px;
+  }
+}

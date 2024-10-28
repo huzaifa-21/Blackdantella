@@ -1,0 +1,33 @@
+aside.sidebar {
+  flex-basis: 20%;
+  min-height: calc(100vh - 77.7px);
+  padding: 15px;
+  border-right: 1px solid $hrColor;
+  padding-right: 0;
+  .options {
+    margin-top: 30px;
+    .option {
+      text-decoration: none;
+      color: white;
+      cursor: pointer;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 10px;
+      border: 1px solid $hrColor;
+      border-right: none;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      svg {
+        font-size: 25px;
+        color: $mainColor;
+      }
+      transition-duration: $mainTransition;
+      &:hover,
+      &.active {
+        background-color: rgba($color: $mainColor, $alpha: 0.5);
+      }
+    }
+  }
+}

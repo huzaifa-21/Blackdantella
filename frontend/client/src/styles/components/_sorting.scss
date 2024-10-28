@@ -1,0 +1,52 @@
+.sorting {
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: $hrColor;
+  padding: 25px 0;
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  backdrop-filter: blur(15px);
+  @media (max-width:576px) {
+    font-size: 13px;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .sort-by {
+      color: $whiteColor;
+      position: relative;
+      label {
+      }
+      select {
+        appearance: none;
+        background-color: transparent;
+        border: none;
+        color: $whiteColor;
+        padding: 0 20px;
+      }
+      svg {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $mainColor;
+        z-index: -1;
+      }
+    }
+    .cart-holder {
+      position: relative;
+      span:first-of-type {
+        color: white;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      svg {
+        color: $mainColor;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}

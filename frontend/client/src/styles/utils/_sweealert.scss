@@ -1,0 +1,36 @@
+/* custom-sweetalert.css */
+
+.swal2-icon {
+  color: $mainColor !important; /* Customize this color for success icon */
+  border-color: $mainColor !important;
+  fill: $mainColor !important;
+}
+
+.swal2-icon-error {
+  color: #f44336; /* Customize this color for error icon */
+}
+
+.swal2-icon-warning {
+  color: #ff9800; /* Customize this color for warning icon */
+}
+
+.swal2-icon-info {
+  color: $mainColor; /* Customize this color for info icon */
+}
+
+.my-popup {
+  background-color: $cardBackground; /* Customize background */
+  border: 1px solid $borderColor;
+  color: $paragraphColor;
+  border-radius: 10px;
+}
+
+.sweet-confirm-button {
+  background:linear-gradient(-70deg, $linearLift ,$linearRight 50%) !important;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+.sweet-cancel-button {
+  background-color: red ;
+}

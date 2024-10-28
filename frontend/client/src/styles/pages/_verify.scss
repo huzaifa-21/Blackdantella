@@ -1,0 +1,9 @@
+.verify {
+  display: grid;
+  min-height: 60vh;
+  > .spinner {
+    place-self: center;
+  }
+}
+
+

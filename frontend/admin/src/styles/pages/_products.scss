@@ -1,0 +1,79 @@
+.products {
+  .product {
+    background-color: $cardBackground;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    img {
+      width: 70px;
+      height: 70px;
+    }
+    div {
+      display: flex;
+      align-items: center;
+      // flex-direction: column`;
+    }
+    .remove-name {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      .remove {
+        color: $outStock;
+        cursor: pointer;
+      }
+    }
+    .remove-name {
+      flex-direction: column;
+    }
+    .color-holder {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex: 1;
+      .inner-color-holder {
+        padding: 15px;
+        background-color: rgba($color: $backgroundColor, $alpha: 0.5);
+        gap: 5px;
+        flex: 1;
+        border-radius: 8px;
+      }
+      .color {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+      }
+      .size {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        .size-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          gap: 5px;
+          padding: 5px;
+          border-radius: 8px;
+          border: 1px solid $mainColor;
+          .size-name {
+          }
+          .siaze-quantity {
+          }
+        }
+      }
+    }
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

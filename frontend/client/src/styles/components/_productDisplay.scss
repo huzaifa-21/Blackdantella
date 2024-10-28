@@ -1,0 +1,140 @@
+/**
+  * My methods
+  * * important information is highlighted 
+  * TODO: should refactor this one
+  * ! this is only testing for this comment extenstion
+  * ? still tes be carefull
+*/
+
+.product-display {
+  .container {
+    .product-filter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      @media (max-width: 576px) {
+        gap: 14px;
+      }
+      .category {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        @media (max-width: 576px) {
+          font-size: 13px;
+        }
+        img {
+          // width: 80px;
+          // height: 80px;
+          border-radius: 50%;
+          transition: $mainTransition;
+          @media (max-width: 576px) {
+            width: 50px;
+            height: 50px;
+          }
+        }
+        span {
+          color: $paragraphColor;
+          transition: $mainTransition;
+        }
+        &.active {
+          img {
+            padding: 5px;
+            border: 3px solid $mainColor;
+          }
+          span {
+            color: $whiteColor;
+          }
+        }
+      }
+    }
+    .row {
+      margin-top: 40px;
+      .product {
+        padding: 15px;
+        background-color: $cardBackground;
+        border-radius: 8px;
+        border: 1px solid $borderColor;
+        color: $whiteColor;
+        animation: fadeIn $mainTransition;
+        cursor: pointer;
+        transition: $mainTransition;
+        // box-shadow: inset 0 0 7px 1px rgba($color:  $mainColor, $alpha: 0.2);
+        &:hover {
+          transform: translateY(-5px);
+        }
+        img {
+          height: 100%;
+          // width: 263.992px;
+          width: 100%;
+        }
+        .product-name {
+          margin-top: 10px;
+          font-weight: normal;
+          font-size: 20px;
+          display: block;
+          @media (max-width: 576px) {
+            font-size: 14px;
+          }
+        }
+        .product-price {
+          display: block;
+          font-size: 18px;
+          @media (max-width: 576px) {
+            font-size: 13px;
+          }
+        }
+        span {
+          font-size: 14px;
+          @media (max-width: 576px) {
+            font-size: 13px;
+          }
+        }
+        .in-stock {
+          color: $inStock;
+        }
+        .sold-out {
+          color: $outStock;
+        }
+      }
+    }
+    .pagination {
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      .pagination-button {
+        opacity: 1;
+        padding: 5px 10px;
+        width: 100px;
+        border-radius: 5px;
+        background-color: $mainColor;
+        border: none;
+        &:disabled {
+          opacity: 0.6;
+        }
+      }
+      .pagination-bullet {
+        font-size: 18px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        &.active {
+          background-color: $cardBackground;
+          width: 10px;
+          height: 10px;
+          padding: 15px;
+          font-weight: bold;
+          border: 1px solid $borderColor;
+          border-radius: 5px;
+          color: $mainColor;
+        }
+      }
+    }
+  }
+}

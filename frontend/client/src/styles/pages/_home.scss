@@ -1,0 +1,17 @@
+.home {
+  animation: fadeIn $mainTransition;
+  position: relative;
+  padding-bottom: 30px;
+  @include balls(400, 400);
+  overflow-x: hidden;
+  margin-bottom: 50px;
+  .welcome-heading {
+    color: $mainColor;
+    // font-weight: 300;
+    text-align: center;
+    padding: 20px 0;
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
+  }
+}

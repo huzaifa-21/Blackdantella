@@ -1,0 +1,43 @@
+.privacy-policy {
+  color: $paragraphColor;
+  animation:fadeIn $mainTransition;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  b {
+    color: $mainColor;
+  }
+  h1,
+  h4,
+  h5 {
+    color: $mainColor;
+  }
+  p {
+    max-width: 1000px;
+  }
+  ul {
+    li {
+      list-style:outside !important;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+  }
+  .container {
+    > ol {
+      > li {
+        list-style: decimal;
+        font-size: 22px;
+        margin-bottom: 20px;
+        ol li {
+          font-size: 15px;
+          list-style: lower-alpha;
+          margin-bottom: 10px;
+        }
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
