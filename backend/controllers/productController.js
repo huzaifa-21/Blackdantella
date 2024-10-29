@@ -132,107 +132,6 @@ const getProducts = async (req, res) => {
   }
 };
 
-// const addProduct = async (req, res) => {
-//   try {
-//     const { name, price, description, category, colorVariants } = req.body;
-//     const colorVariantsData = JSON.parse(colorVariants);
-
-//     const imageProcessingPromises = [];
-
-//     colorVariantsData.forEach((variant) => {
-//       if (!variant.color) {
-//         console.error("Color is missing for variant:", variant);
-//         return res.status(400).send({
-//           success: false,
-//           message: "Color is missing for one of the variants.",
-//         });
-//       }
-
-//       variant.images = [];
-//       const matchingFiles = req.files.filter((file) =>
-//         file.originalname.startsWith(variant.color)
-//       );
-
-//       if (matchingFiles.length === 0) {
-//         console.warn(`No matching files for color: ${variant.color}`);
-//         return res.status(400).send({
-//           success: false,
-//           message: `No images found for color: ${variant.color}`,
-//         });
-//       }
-
-//       matchingFiles.forEach((file) => {
-//         if (file.size > 5 * 1024 * 1024) {
-//           // Limit file size to 5MB
-//           console.warn(`File too large: ${file.originalname}`);
-//           return res.status(400).send({
-//             success: false,
-//             message: `File ${file.originalname} exceeds the maximum size limit of 5MB.`,
-//           });
-//         }
-
-//         const webpFileName = `${Date.now()}-${file.originalname
-//           .split(".")
-//           .slice(0, -1)
-//           .join(".")}.webp`;
-//         const webpFilePath = path.join("uploads", webpFileName);
-
-//         const processImage = async () => {
-//           try {
-//             let imageBuffer;
-
-//             if (
-//               file.mimetype === "image/heic" ||
-//               file.mimetype === "image/heif"
-//             ) {
-//               const jpegBuffer = await heicConvert({
-//                 buffer: fs.readFileSync(file.path),
-//                 format: "JPEG",
-//               });
-//               imageBuffer = jpegBuffer;
-//             } else {
-//               imageBuffer = fs.readFileSync(file.path);
-//             }
-
-//             await sharp(imageBuffer).webp({ quality: 80 }).toFile(webpFilePath);
-//             fs.unlinkSync(file.path); // Remove original file after processing
-//             variant.images.push({
-//               url: `/images/${webpFileName}`,
-//               description: "",
-//             });
-//             console.log(`Image processed and URL added: ${webpFileName}`);
-//           } catch (err) {
-//             console.error(`Error converting image: ${err.message}`);
-//             // Handle error gracefully, possibly notify the user
-//           }
-//         };
-
-//         imageProcessingPromises.push(processImage());
-//       });
-
-//       variant.sizes = variant.sizes.filter((size) => size.checked);
-//     });
-
-//     await Promise.all(imageProcessingPromises); // Wait for all image processing to finish
-
-//     console.log("Processed Color Variants Data:", colorVariantsData);
-
-//     const newProduct = new Product({
-//       name,
-//       price,
-//       description,
-//       category,
-//       colorVariants: colorVariantsData,
-//     });
-
-//     await newProduct.save();
-//     res.status(201).send({ success: true, data: newProduct });
-//   } catch (error) {
-//     console.error(`Error adding product: ${error.message}`);
-//     res.status(400).send({ success: false, message: error.message });
-//   }
-// };
-
 const addProduct = async (req, res) => {
   try {
     const { name, price, description, category, colorVariants } = req.body;
@@ -272,13 +171,13 @@ const addProduct = async (req, res) => {
           });
         }
 
-        const processImage = async (sizeName, width) => {
-          const webpFileName = `${Date.now()}-${file.originalname
-            .split(".")
-            .slice(0, -1)
-            .join(".")}-${sizeName}.webp`;
-          const webpFilePath = path.join("uploads", webpFileName);
+        const webpFileName = `${Date.now()}-${file.originalname
+          .split(".")
+          .slice(0, -1)
+          .join(".")}.webp`;
+        const webpFilePath = path.join("uploads", webpFileName);
 
+        const processImage = async () => {
           try {
             let imageBuffer;
 
@@ -295,11 +194,8 @@ const addProduct = async (req, res) => {
               imageBuffer = fs.readFileSync(file.path);
             }
 
-            // Resize the image using sharp and save as WebP
-            await sharp(imageBuffer)
-              .resize({ width })
-              .webp({ quality: 80 })
-              .toFile(webpFilePath);
+            await sharp(imageBuffer).webp({ quality: 80 }).toFile(webpFilePath);
+            fs.unlinkSync(file.path); // Remove original file after processing
             variant.images.push({
               url: `/images/${webpFileName}`,
               description: "",
@@ -311,17 +207,7 @@ const addProduct = async (req, res) => {
           }
         };
 
-        // Define sizes you want to create
-        const sizes = [
-          { name: "small", width: 200 },
-          { name: "medium", width: 500 },
-          { name: "large", width: 1000 },
-        ];
-
-        // Process each size
-        sizes.forEach((size) => {
-          imageProcessingPromises.push(processImage(size.name, size.width));
-        });
+        imageProcessingPromises.push(processImage());
       });
 
       variant.sizes = variant.sizes.filter((size) => size.checked);
@@ -346,6 +232,120 @@ const addProduct = async (req, res) => {
     res.status(400).send({ success: false, message: error.message });
   }
 };
+
+// const addProduct = async (req, res) => {
+//   try {
+//     const { name, price, description, category, colorVariants } = req.body;
+//     const colorVariantsData = JSON.parse(colorVariants);
+
+//     const imageProcessingPromises = [];
+
+//     colorVariantsData.forEach((variant) => {
+//       if (!variant.color) {
+//         console.error("Color is missing for variant:", variant);
+//         return res.status(400).send({
+//           success: false,
+//           message: "Color is missing for one of the variants.",
+//         });
+//       }
+
+//       variant.images = [];
+//       const matchingFiles = req.files.filter((file) =>
+//         file.originalname.startsWith(variant.color)
+//       );
+
+//       if (matchingFiles.length === 0) {
+//         console.warn(`No matching files for color: ${variant.color}`);
+//         return res.status(400).send({
+//           success: false,
+//           message: `No images found for color: ${variant.color}`,
+//         });
+//       }
+
+//       matchingFiles.forEach((file) => {
+//         if (file.size > 5 * 1024 * 1024) {
+//           // Limit file size to 5MB
+//           console.warn(`File too large: ${file.originalname}`);
+//           return res.status(400).send({
+//             success: false,
+//             message: `File ${file.originalname} exceeds the maximum size limit of 5MB.`,
+//           });
+//         }
+
+//         const processImage = async (sizeName, width) => {
+//           const webpFileName = `${Date.now()}-${file.originalname
+//             .split(".")
+//             .slice(0, -1)
+//             .join(".")}-${sizeName}.webp`;
+//           const webpFilePath = path.join("uploads", webpFileName);
+
+//           try {
+//             let imageBuffer;
+
+//             if (
+//               file.mimetype === "image/heic" ||
+//               file.mimetype === "image/heif"
+//             ) {
+//               const jpegBuffer = await heicConvert({
+//                 buffer: fs.readFileSync(file.path),
+//                 format: "JPEG",
+//               });
+//               imageBuffer = jpegBuffer;
+//             } else {
+//               imageBuffer = fs.readFileSync(file.path);
+//             }
+
+//             // Resize the image using sharp and save as WebP
+//             await sharp(imageBuffer)
+//               .resize({ width })
+//               .webp({ quality: 80 })
+//               .toFile(webpFilePath);
+//             variant.images.push({
+//               url: `/images/${webpFileName}`,
+//               description: "",
+//             });
+//             console.log(`Image processed and URL added: ${webpFileName}`);
+//           } catch (err) {
+//             console.error(`Error converting image: ${err.message}`);
+//             // Handle error gracefully, possibly notify the user
+//           }
+//         };
+
+//         // Define sizes you want to create
+//         const sizes = [
+//           { name: "small", width: 200 },
+//           { name: "medium", width: 500 },
+//           { name: "large", width: 1000 },
+//         ];
+
+//         // Process each size
+//         sizes.forEach((size) => {
+//           imageProcessingPromises.push(processImage(size.name, size.width));
+//         });
+//       });
+
+//       variant.sizes = variant.sizes.filter((size) => size.checked);
+//     });
+
+//     await Promise.all(imageProcessingPromises); // Wait for all image processing to finish
+
+//     console.log("Processed Color Variants Data:", colorVariantsData);
+
+//     const newProduct = new Product({
+//       name,
+//       price,
+//       description,
+//       category,
+//       colorVariants: colorVariantsData,
+//     });
+
+//     await newProduct.save();
+//     res.status(201).send({ success: true, data: newProduct });
+//   } catch (error) {
+//     console.error(`Error adding product: ${error.message}`);
+//     res.status(400).send({ success: false, message: error.message });
+//   }
+// };
 
 
 const removeProduct = async (req, res) => {
