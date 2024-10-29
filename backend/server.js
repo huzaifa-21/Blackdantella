@@ -22,7 +22,6 @@ const __dirname = path.dirname(__filename);
 const allowedOrigins = [
   "https://blackdantella.com",
   "https://www.blackdantella.com",
-  "https://admin.blackdantella.com",
   "http://localhost:5173",
   "http://localhost:5174",
 ];
