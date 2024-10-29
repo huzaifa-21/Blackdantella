@@ -47,6 +47,8 @@ app.use(
   })
 );
 
+app.options("*",cors())
+
 app.use(
   "/images",
   express.static(path.join(__dirname, "uploads"), { maxAge: "1y", etag: false })
