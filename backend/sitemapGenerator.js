@@ -17,18 +17,28 @@ async function generateSitemap() {
     // Add more URLs as needed
   ];
 
-  const sitemapStream = new SitemapStream({
-    hostname: "https://blackdantella.com",
-  });
+  const sitemaps = await Promise.all(
+    ["https://blackdantella.com", "https://www.blackdantella.com"].map(
+      async (hostname) => {
+        const sitemapStream = new SitemapStream({ hostname });
 
-  links.forEach((link) => sitemapStream.write(link));
-  sitemapStream.end();
+        links.forEach((link) => sitemapStream.write(link));
+        sitemapStream.end();
 
-  const sitemapXML = await streamToPromise(sitemapStream);
+        return streamToPromise(sitemapStream);
+      }
+    )
+  );
 
-  // Save the sitemap in the correct directory
+  // Combine both sitemaps into one XML structure
+  const combinedSitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemaps.map((sitemap) => sitemap.toString()).join("")}
+</urlset>`;
+
+  // Save the combined sitemap in the correct directory
   const sitemapPath = path.join(process.cwd(), "/public", "sitemap.xml");
-  fs.writeFileSync(sitemapPath, sitemapXML.toString());
+  fs.writeFileSync(sitemapPath, combinedSitemap);
   console.log(`Sitemap generated at ${sitemapPath}`);
 }
 

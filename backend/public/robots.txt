@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://blackdantella.com/sitemap.xml
+Sitemap: https://www.blackdantella.com/sitemap.xml
