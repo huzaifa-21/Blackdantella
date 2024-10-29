@@ -58,8 +58,9 @@
     font-size: 20px;
   }
   img {
-    height: 81.563px;
-    width: 316px;
+    // height: 81.563px;
+    // width: 316px;
+    max-width: 100%;
     padding-right: 20px;
   }
   .social-accounts ul {

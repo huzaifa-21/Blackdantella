@@ -17,7 +17,8 @@ const Cart = () => {
   let total = 0;
   // let [cart, setCart] = useState([]);
   const { items: cart, status } = useSelector((state) => state.cart);
-  const {items:products} = useSelector((state)=>state.products);
+  const { items: products } = useSelector((state) => state.products);
+  const {profile} = useSelector((state)=>state.user)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const Cart = () => {
       status === "succeeded"
     ) {
       dispatch(fetchCartItems());
-      dispatch(fetchProducts())
+      dispatch(fetchProducts());
     }
   }, [dispatch]);
 
@@ -51,12 +52,11 @@ const Cart = () => {
     }
   }
 
-
   if (status === "loading" || !products) {
     return <div className="spinner"></div>;
   }
 
-  if (status === "succeeded" && cart.length < 1) {
+  if ((status === "succeeded" && cart.length < 1) || !profile ) {
     return (
       <div className="no-products">
         <FontAwesomeIcon icon={faCube} /> No Products added
@@ -81,12 +81,9 @@ const Cart = () => {
                   if (item.id === product._id) {
                     total += product.price * item.quantity;
                     return (
-                      <div className="text-center" key={index}>
-                        <div >
-                          <img
-                            src={config.BASE_URL + item.image}
-                            alt=""
-                          />
+                      <div key={index}>
+                        <div>
+                          <img src={config.BASE_URL + item.image} alt="" />
                         </div>
                         <div className="info-remove ">
                           <span className="item-name">{product.name}</span>
