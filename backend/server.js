@@ -31,12 +31,13 @@ const allowedOrigins = [
 app.use(express.json());
 app.use(cookieParser());
 
-// Move CORS setup to the very top, explicitly setting allowed headers
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (allowedOrigins.includes(origin) || !origin) {
-        callback(null, true);
+    origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, origin); // Use the origin requested instead of true
+      } else if (!origin) {
+        callback(null, "*"); // Allow non-origin requests (for non-browser environments like curl)
       } else {
         callback(new Error("Not allowed by CORS"));
       }
@@ -46,6 +47,7 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
+
 
 // Compression middleware
 app.use(
