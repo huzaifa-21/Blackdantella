@@ -17,28 +17,30 @@ async function generateSitemap() {
     // Add more URLs as needed
   ];
 
-  const sitemaps = await Promise.all(
-    ["https://blackdantella.com", "https://www.blackdantella.com"].map(
-      async (hostname) => {
-        const sitemapStream = new SitemapStream({ hostname });
+  const primaryHostname = "https://blackdantella.com";
+  const wwwHostname = "https://www.blackdantella.com";
 
-        links.forEach((link) => sitemapStream.write(link));
-        sitemapStream.end();
+  const sitemapStream = new SitemapStream({
+    hostname: primaryHostname, // Use primary hostname initially
+  });
 
-        return streamToPromise(sitemapStream);
-      }
-    )
-  );
+  // Write links for both hostnames
+  links.forEach((link) => {
+    // Add link for primary hostname
+    sitemapStream.write({ ...link, loc: primaryHostname + link.url });
+    // Add link for www hostname
+    sitemapStream.write({ ...link, loc: wwwHostname + link.url });
+  });
 
-  // Combine both sitemaps into one XML structure
-  const combinedSitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemaps.map((sitemap) => sitemap.toString()).join("")}
-</urlset>`;
+  sitemapStream.end();
 
-  // Save the combined sitemap in the correct directory
+  // Get the sitemap XML and trim any extra spaces or new lines
+  const sitemapXML = await streamToPromise(sitemapStream);
+  const trimmedSitemap = sitemapXML.toString().trim();
+
+  // Save the sitemap in the correct directory
   const sitemapPath = path.join(process.cwd(), "/public", "sitemap.xml");
-  fs.writeFileSync(sitemapPath, combinedSitemap);
+  fs.writeFileSync(sitemapPath, trimmedSitemap);
   console.log(`Sitemap generated at ${sitemapPath}`);
 }
 
