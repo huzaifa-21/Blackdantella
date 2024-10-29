@@ -12,6 +12,7 @@ import axiosInstance from "../utils/axiosInstance";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { updateProfile } from "../context/slices/userSlice";
+import { Helmet } from "react-helmet";
 
 const Signup = ({ setLogedIn }) => {
   const navigate = useNavigate();
@@ -111,81 +112,92 @@ const Signup = ({ setLogedIn }) => {
     }
   };
   return (
-    <Container>
-      <form className="sign-up" onSubmit={handleSubmit} noValidate>
-        <h3 className="sign-intro">Create an account</h3>
-        <p className="have-account-p">
-          Already have an account? <a href="">Login</a>
-        </p>
-        <div className="input-holder">
-          <label htmlFor="name">What should we call you?</label>
-          <input
-            type="text"
-            className={`main-input ${errors.name ? "is-invalid" : ""}`}
-            name="name"
-            id="name"
-            placeholder="Enter your profile name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          {errors.name && <div className="error-message">{errors.name}</div>}
-        </div>
-        <div className="input-holder">
-          <label htmlFor="email">What's your email?</label>
-          <input
-            type="email"
-            className={`main-input ${errors.email ? "is-invalid" : ""}`}
-            name="email"
-            id="email"
-            placeholder="Enter your email address"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {errors.email && <div className="error-message">{errors.email}</div>}
-        </div>
-        <div className="input-holder">
-          <label htmlFor="password">Create a password</label>
-          <input
-            className={`main-input ${errors.password ? "is-invalid" : ""}`}
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Password"
-            id="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <FontAwesomeIcon
-            icon={showPassword ? faEye : faEyeSlash}
-            onClick={() => setShowPassword(!showPassword)}
-          />
-          {errors.password && (
-            <div className="error-message">{errors.password}</div>
-          )}
-        </div>
-        <p className="terms">
-          By creating an account, you agree to the{" "}
-          <Link to="/terms" className="terms-link">
-            Terms of use
-          </Link>{" "}
-          and{" "}
-          <Link to="/policy" className="privacy-link">
-            Privacy Policy.
-          </Link>
-        </p>
-        <input type="submit" value="Create account" className="main-button" />
-        <p className="or">OR Continue With</p>
-        <div className="social-container">
-          <div className="social-login" onClick={handleGoogleLogin}>
-            <img src={assets.google_logo} alt="" />
-            Continue With Google
+    <>
+      <Helmet>
+        <title>Sign up</title>
+        <link
+          rel="canonical"
+          href="https://blackdantella.com/account/register"
+        />
+      </Helmet>
+      <Container>
+        <form className="sign-up" onSubmit={handleSubmit} noValidate>
+          <h3 className="sign-intro">Create an account</h3>
+          <p className="have-account-p">
+            Already have an account? <Link to="/account/login">Login</Link>
+          </p>
+          <div className="input-holder">
+            <label htmlFor="name">What should we call you?</label>
+            <input
+              type="text"
+              className={`main-input ${errors.name ? "is-invalid" : ""}`}
+              name="name"
+              id="name"
+              placeholder="Enter your profile name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            {errors.name && <div className="error-message">{errors.name}</div>}
           </div>
-          <div className="social-login">
-            <img src={assets.apple_logo} alt="" />
-            Continue With Apple
+          <div className="input-holder">
+            <label htmlFor="email">What's your email?</label>
+            <input
+              type="email"
+              className={`main-input ${errors.email ? "is-invalid" : ""}`}
+              name="email"
+              id="email"
+              placeholder="Enter your email address"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            {errors.email && (
+              <div className="error-message">{errors.email}</div>
+            )}
           </div>
-        </div>
-      </form>
-    </Container>
+          <div className="input-holder">
+            <label htmlFor="password">Create a password</label>
+            <input
+              className={`main-input ${errors.password ? "is-invalid" : ""}`}
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              id="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <FontAwesomeIcon
+              icon={showPassword ? faEye : faEyeSlash}
+              onClick={() => setShowPassword(!showPassword)}
+            />
+            {errors.password && (
+              <div className="error-message">{errors.password}</div>
+            )}
+          </div>
+          <p className="terms">
+            By creating an account, you agree to the{" "}
+            <Link to="/terms" className="terms-link">
+              Terms of use
+            </Link>{" "}
+            and{" "}
+            <Link to="/policy" className="privacy-link">
+              Privacy Policy.
+            </Link>
+          </p>
+          <input type="submit" value="Create account" className="main-button" />
+          <p className="or">OR Continue With</p>
+          <div className="social-container">
+            <div className="social-login" onClick={handleGoogleLogin}>
+              <img src={assets.google_logo} alt="" />
+              Continue With Google
+            </div>
+            <div className="social-login">
+              <img src={assets.apple_logo} alt="" />
+              Continue With Apple
+            </div>
+          </div>
+        </form>
+      </Container>
+    </>
   );
 };
 

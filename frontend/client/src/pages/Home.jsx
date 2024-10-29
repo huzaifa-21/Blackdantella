@@ -3,6 +3,7 @@ import Sorting from "../components/Sorting";
 import ProductDisplay from "../components/ProductDisplay";
 import { useDispatch } from "react-redux";
 import { fetchCartItems } from "../context/slices/CartSlice";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -13,13 +14,18 @@ const Home = () => {
       dispatch(fetchCartItems());
     }
   }, []);
-
   return (
-    <div className="home" aria-label="homepage">
-      <h1 className="welcome-heading">Enjoy our store</h1>
-      <Sorting />
-      <ProductDisplay />
-    </div>
+    <>
+      <Helmet>
+        <title>Blackdantella</title>
+        <link rel="canonical" href="https://blackdantella.com/" />
+      </Helmet>
+      <div className="home" aria-label="homepage">
+        <h1 className="welcome-heading">Enjoy our store</h1>
+        <Sorting />
+        <ProductDisplay />
+      </div>
+    </>
   );
 };
 

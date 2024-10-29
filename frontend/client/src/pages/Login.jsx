@@ -11,6 +11,7 @@ import { updateProfile } from "../context/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { auth, googleProvider } from "../config/firebaseConfig"; // Import Firebase Auth
 import { signInWithPopup } from "firebase/auth";
+import { Helmet } from "react-helmet";
 
 const Login = ({ setLogedIn }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -96,55 +97,61 @@ const Login = ({ setLogedIn }) => {
   };
 
   return (
-    <Container>
-      <form className="login" onSubmit={handleSubmit} noValidate>
-        <div className="logo-container">
-          <img src={assets.b_logo} className="b-logo" alt="" />
-          <img src={assets.letter_logo} className="letter-logo" alt="" />
-        </div>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          className={`main-input ${errors.email ? "is-invalid" : ""}`}
-          value={formData.email}
-          onChange={handleChange}
-        />
-        {errors.email && <div className="error-message">{errors.email}</div>}
-        <div className="input-holder">
+    <>
+      <Helmet>
+        <title>Login</title>
+        <link rel="canonical" href="https://blackdantella.com/account/login" />
+      </Helmet>
+      <Container>
+        <form className="login" onSubmit={handleSubmit} noValidate>
+          <div className="logo-container">
+            <img src={assets.b_logo} className="b-logo" alt="" />
+            <img src={assets.letter_logo} className="letter-logo" alt="" />
+          </div>
           <input
-            className={`main-input ${errors.password ? "is-invalid" : ""}`}
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Password"
-            value={formData.password}
+            type="email"
+            name="email"
+            placeholder="Email"
+            className={`main-input ${errors.email ? "is-invalid" : ""}`}
+            value={formData.email}
             onChange={handleChange}
           />
-          <FontAwesomeIcon
-            icon={showPassword ? faEye : faEyeSlash}
-            onClick={() => setShowPassword(!showPassword)}
-          />
-          {errors.password && (
-            <div className="error-message">{errors.password}</div>
-          )}
-        </div>
-        <input type="submit" className="main-button" value="Login" />
-        <div className="or"></div>
+          {errors.email && <div className="error-message">{errors.email}</div>}
+          <div className="input-holder">
+            <input
+              className={`main-input ${errors.password ? "is-invalid" : ""}`}
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <FontAwesomeIcon
+              icon={showPassword ? faEye : faEyeSlash}
+              onClick={() => setShowPassword(!showPassword)}
+            />
+            {errors.password && (
+              <div className="error-message">{errors.password}</div>
+            )}
+          </div>
+          <input type="submit" className="main-button" value="Login" />
+          <div className="or"></div>
 
-        <div className="social-login" onClick={handleGoogleLogin}>
-          <img src={assets.google_logo} alt="Google Logo" />
-          Continue With Google
-        </div>
+          <div className="social-login" onClick={handleGoogleLogin}>
+            <img src={assets.google_logo} alt="Google Logo" />
+            Continue With Google
+          </div>
 
-        <div className="social-login">
-          <img src={assets.apple_logo} alt="Apple Logo" />
-          Continue With Apple
-        </div>
-        <a href="/account/register" className="create-account">
-          Create Account
-        </a>
-      </form>
-    </Container>
+          <div className="social-login">
+            <img src={assets.apple_logo} alt="Apple Logo" />
+            Continue With Apple
+          </div>
+          <a href="/account/register" className="create-account">
+            Create Account
+          </a>
+        </form>
+      </Container>
+    </>
   );
 };
 

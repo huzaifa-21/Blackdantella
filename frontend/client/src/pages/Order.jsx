@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { clearCart } from "../context/slices/CartSlice";
 import Swal from "sweetalert2";
 import { fetchUserProfile } from "../context/slices/userSlice";
+import { Helmet } from "react-helmet";
 
 const Order = () => {
   const delivery = 10; // Delivery fee
@@ -232,181 +233,190 @@ const Order = () => {
     setFormErrors(newErrors);
     return valid;
   };
-
   return (
-    <div className="order row">
-      <div className="delivery-information col-12 col-md-8 col-lg-6">
-        <Container className="m-0  mw-100">
-          <h2 className="delivery-head">Delivery Information</h2>
-          <form autoComplete="off" onSubmit={handleSubmit}>
-            <div className="input-holder">
-              <div>
-                <input
-                  type="text"
-                  id="firstName"
-                  className={`main-input ${
-                    formErrors.firstName ? "is-invalid" : ""
-                  }`}
-                  placeholder="First name"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                />
-                {formErrors.firstName && (
-                  <span className="error-message">{formErrors.firstName}</span>
-                )}
+    <>
+      <Helmet>
+        <title>Checkout</title>
+        <link rel="canonical" href="https://blackdantella.com/order" />
+      </Helmet>
+      <div className="order row">
+        <div className="delivery-information col-12 col-md-8 col-lg-6">
+          <Container className="m-0  mw-100">
+            <h2 className="delivery-head">Delivery Information</h2>
+            <form autoComplete="off" onSubmit={handleSubmit}>
+              <div className="input-holder">
+                <div>
+                  <input
+                    type="text"
+                    id="firstName"
+                    className={`main-input ${
+                      formErrors.firstName ? "is-invalid" : ""
+                    }`}
+                    placeholder="First name"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                  />
+                  {formErrors.firstName && (
+                    <span className="error-message">
+                      {formErrors.firstName}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="lastName"
+                    className={`main-input ${
+                      formErrors.lastName ? "is-invalid" : ""
+                    }`}
+                    placeholder="Last name"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                  />
+                  {formErrors.lastName && (
+                    <span className="error-message">{formErrors.lastName}</span>
+                  )}
+                </div>
               </div>
               <div>
                 <input
+                  autoComplete="on"
                   type="text"
-                  id="lastName"
+                  id="address"
                   className={`main-input ${
-                    formErrors.lastName ? "is-invalid" : ""
+                    formErrors.address ? "is-invalid" : ""
                   }`}
-                  placeholder="Last name"
-                  value={formData.lastName}
+                  placeholder="Street"
+                  value={formData.address}
                   onChange={handleChange}
                 />
-                {formErrors.lastName && (
-                  <span className="error-message">{formErrors.lastName}</span>
+                {formErrors.address && (
+                  <span className="error-message">{formErrors.address}</span>
                 )}
               </div>
-            </div>
-            <div>
-              <input
-                autoComplete="on"
-                type="text"
-                id="address"
-                className={`main-input ${
-                  formErrors.address ? "is-invalid" : ""
-                }`}
-                placeholder="Street"
-                value={formData.address}
-                onChange={handleChange}
-              />
-              {formErrors.address && (
-                <span className="error-message">{formErrors.address}</span>
-              )}
-            </div>
-            <div>
-              <input
-                type="text"
-                id="apartment"
-                className={`main-input ${
-                  formErrors.apartment ? "is-invalid" : ""
-                }`}
-                placeholder="Apartment"
-                value={formData.apartment}
-                onChange={handleChange}
-              />
-              {formErrors.apartment && (
-                <span className="error-message">{formErrors.apartment}</span>
-              )}
-            </div>
-            <div className="input-holder flex-column flex-md-row ">
-              <div className="col-12">
-                <input
-                  autoComplete="off"
-                  type="text"
-                  id="country"
-                  list="countryList"
-                  className={`main-input ${
-                    formErrors.country ? "is-invalid" : ""
-                  }`}
-                  placeholder="Country"
-                  value={countryData}
-                  onChange={handleChange}
-                />
-                {formErrors.country && (
-                  <span className="error-message">{formErrors.country}</span>
-                )}
-                <datalist id="countryList">
-                  <option>{countryData}</option>
-                </datalist>
-              </div>
-              <div className="col-12">
+              <div>
                 <input
                   type="text"
-                  id="city"
+                  id="apartment"
                   className={`main-input ${
-                    formErrors.city ? "is-invalid" : ""
+                    formErrors.apartment ? "is-invalid" : ""
                   }`}
-                  placeholder="City"
-                  value={formData.city}
+                  placeholder="Apartment"
+                  value={formData.apartment}
                   onChange={handleChange}
-                  list="cityList"
                 />
-                {formErrors.city && (
-                  <span className="error-message">{formErrors.city}</span>
+                {formErrors.apartment && (
+                  <span className="error-message">{formErrors.apartment}</span>
                 )}
-                <datalist id="cityList">
-                  {cityData.map((city, index) => {
-                    return (
-                      <option defaultValue="Abu Dhabi" key={index}>
-                        {city}
-                      </option>
-                    );
-                  })}
-                </datalist>
               </div>
-            </div>
-            <div>
-              <input
-                type="text"
-                id="zipCode"
-                className={`main-input ${
-                  formErrors.zipCode ? "is-invalid" : ""
-                }`}
-                placeholder="Zipcode"
-                value={formData.zipCode}
-                onChange={handleChange}
-              />
-              {formErrors.zipCode && (
-                <span className="error-message">{formErrors.zipCode}</span>
-              )}
-            </div>
-            <div>
-              <input
-                autoComplete="on"
-                type="tel"
-                id="phone"
-                className={`main-input ${formErrors.phone ? "is-invalid" : ""}`}
-                placeholder="phone number without the code"
-                value={formData.phone}
-                onChange={(e) => {
-                  setFormData((prevData) => ({
-                    ...prevData,
-                    phone: e.target.value,
-                  }));
-                }}
-              />
-              {formErrors.phone && (
-                <span className="error-message">{formErrors.phone}</span>
-              )}
-              {/* Display the selected country flag and dial code */}
-              <div className="phone-prefix">🇦🇪 +971</div>
-            </div>
-          </form>
-        </Container>
+              <div className="input-holder flex-column flex-md-row ">
+                <div className="col-12">
+                  <input
+                    autoComplete="off"
+                    type="text"
+                    id="country"
+                    list="countryList"
+                    className={`main-input ${
+                      formErrors.country ? "is-invalid" : ""
+                    }`}
+                    placeholder="Country"
+                    value={countryData}
+                    onChange={handleChange}
+                  />
+                  {formErrors.country && (
+                    <span className="error-message">{formErrors.country}</span>
+                  )}
+                  <datalist id="countryList">
+                    <option>{countryData}</option>
+                  </datalist>
+                </div>
+                <div className="col-12">
+                  <input
+                    type="text"
+                    id="city"
+                    className={`main-input ${
+                      formErrors.city ? "is-invalid" : ""
+                    }`}
+                    placeholder="City"
+                    value={formData.city}
+                    onChange={handleChange}
+                    list="cityList"
+                  />
+                  {formErrors.city && (
+                    <span className="error-message">{formErrors.city}</span>
+                  )}
+                  <datalist id="cityList">
+                    {cityData.map((city, index) => {
+                      return (
+                        <option defaultValue="Abu Dhabi" key={index}>
+                          {city}
+                        </option>
+                      );
+                    })}
+                  </datalist>
+                </div>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  id="zipCode"
+                  className={`main-input ${
+                    formErrors.zipCode ? "is-invalid" : ""
+                  }`}
+                  placeholder="Zipcode"
+                  value={formData.zipCode}
+                  onChange={handleChange}
+                />
+                {formErrors.zipCode && (
+                  <span className="error-message">{formErrors.zipCode}</span>
+                )}
+              </div>
+              <div>
+                <input
+                  autoComplete="on"
+                  type="tel"
+                  id="phone"
+                  className={`main-input ${
+                    formErrors.phone ? "is-invalid" : ""
+                  }`}
+                  placeholder="phone number without the code"
+                  value={formData.phone}
+                  onChange={(e) => {
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      phone: e.target.value,
+                    }));
+                  }}
+                />
+                {formErrors.phone && (
+                  <span className="error-message">{formErrors.phone}</span>
+                )}
+                {/* Display the selected country flag and dial code */}
+                <div className="phone-prefix">🇦🇪 +971</div>
+              </div>
+            </form>
+          </Container>
+        </div>
+        <div className="payment-check col-12 col-md-4 col-lg-6">
+          <h2 className="payment-head">Cart Totals</h2>
+          <div className="payment-subtotal">
+            <span>Subtotal</span>
+            <span>{total} AED</span>
+          </div>
+          <div className="payment-fee">
+            <span>Delivery Fee</span>
+            <span>{delivery} AED</span>
+          </div>
+          <div className="payment-total">
+            <span>Total</span>
+            <span>{total + delivery} AED</span>
+          </div>
+          <button onClick={handleSubmit} className="main-button">
+            Proceed to Payment
+          </button>
+        </div>
       </div>
-      <div className="payment-check col-12 col-md-4 col-lg-6">
-        <h2 className="payment-head">Cart Totals</h2>
-        <div className="payment-subtotal">
-          <span>Subtotal</span>
-          <span>{total} AED</span>
-        </div>
-        <div className="payment-fee">
-          <span>Delivery Fee</span>
-          <span>{delivery} AED</span>
-        </div>
-        <div className="payment-total">
-          <span>Total</span>
-          <span>{total + delivery} AED</span>
-        </div>
-        <button onClick={handleSubmit} className="main-button">
-          Proceed to Payment
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 

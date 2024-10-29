@@ -11,6 +11,9 @@ async function generateSitemap() {
     { url: "/cart", changefreq: "monthly", priority: 0.8 },
     { url: "/account/login", changefreq: "monthly", priority: 0.8 },
     { url: "/account/register", changefreq: "monthly", priority: 0.8 },
+    { url: "/profile", changefreq: "monthly", priority: 0.8 },
+    { url: "/order", changefreq: "monthly", priority: 0.8 },
+    { url: "/myorders", changefreq: "monthly", priority: 0.8 },
     // Add more URLs as needed
   ];
 
