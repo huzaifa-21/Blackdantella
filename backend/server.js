@@ -50,6 +50,9 @@ app.use(
   "/images",
   express.static(path.join(__dirname, "uploads"), { maxAge: "1y", etag: false })
 );
+
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(
   compression({
     level: 6,
