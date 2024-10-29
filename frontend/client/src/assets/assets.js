@@ -22,7 +22,7 @@ export const assets = {
 export const category_items = [
   {
     img: scrunches_icon,
-    name: "scrunches",
+    name: "scrunchies",
   },
   {
     img: accessories_icon,
@@ -30,11 +30,11 @@ export const category_items = [
   },
   {
     img: bandas_icon,
-    name: "bandas",
+    name: "head-band",
   },
   {
     img: prayer_icon,
-    name: "prayer-suite",
+    name: "prayer-veil",
   },
   {
     img: hijab_icon,

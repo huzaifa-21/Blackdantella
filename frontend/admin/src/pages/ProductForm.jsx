@@ -159,10 +159,10 @@ const ProductForm = ({ setLogedIn }) => {
                 value={product.category}
                 onChange={handleInputChange}
               >
-                <option value="scrunches">Scrunches</option>
+                <option value="scrunchies">scrunchies</option>
                 <option value="accessories">Accessories</option>
-                <option value="bandas">Bandas</option>
-                <option value="prayer-suite">Prayer Suite</option>
+                <option value="head-band">head-band</option>
+                <option value="prayer-veil">prayer-veil</option>
                 <option value="hijabs">Hijabs</option>
               </select>
               <FontAwesomeIcon icon={faArrowDownLong} />
