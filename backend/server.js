@@ -27,7 +27,6 @@ const allowedOrigins = [
   "https://admin.blackdantella.com",
   "http://localhost:5173",
   "http://localhost:5174",
-  "https://black-dantella-client.onrender.com",
 ];
 // Middlewares
 app.use(express.json());
@@ -35,7 +34,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      if (allowedOrigins.includes(origin) || !origin) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
