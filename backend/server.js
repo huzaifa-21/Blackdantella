@@ -13,7 +13,9 @@ import paymentRouter from "./routers/paymentRouter.js";
 import orderRouter from "./routers/orderRouter.js";
 
 configDotenv();
-connectDB(); // DB Connection
+
+connectDB();
+// DB Connection
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -25,19 +27,16 @@ const allowedOrigins = [
   "https://admin.blackdantella.com",
   "http://localhost:5173",
   "http://localhost:5174",
+  "https://black-dantella-client.onrender.com",
 ];
-
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
-
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (allowedOrigins.includes(origin)) {
-        callback(null, origin); // Use the origin requested instead of true
-      } else if (!origin) {
-        callback(null, "*"); // Allow non-origin requests (for non-browser environments like curl)
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
       }
@@ -46,12 +45,21 @@ app.use(
   })
 );
 
+app.use(
+  "/images",
+  express.static(path.join(__dirname, "uploads"), { maxAge: "1y", etag: false })
+);
 
-// Compression middleware
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/robots.txt", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "robots.txt"));
+});
+
 app.use(
   compression({
     level: 6,
-    threshold: 1024,
+    threshold: 1024, // Compress responses larger than 1KB
     filter: (req, res) => {
       if (req.headers["x-no-compression"]) {
         return false;
@@ -61,27 +69,14 @@ app.use(
   })
 );
 
-// Static assets
-app.use(
-  "/images",
-  express.static(path.join(__dirname, "uploads"), { maxAge: "1y", etag: false })
-);
-app.use(express.static(path.join(__dirname, "public")));
-
-// Serve robots.txt
-app.get("/robots.txt", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "robots.txt"));
-});
-
-// API Endpoints
+// api endpoints
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/payment", paymentRouter);
 app.use("/api/order", orderRouter);
 
-// Server listen
-const PORT = process.env.PORT || 4001;
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+// server listen
+app.listen(process.env.PORT || 4001, (req, res) => {
+  console.log(`server running at http://localhost:${process.env.PORT}`);
 });
