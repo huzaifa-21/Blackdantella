@@ -25,10 +25,8 @@ const allowedOrigins = [
   "https://blackdantella.com",
   "https://www.blackdantella.com",
   "https://admin.blackdantella.com",
-  "http://admin.blackdantella.com",
   "http://localhost:5173",
   "http://localhost:5174",
-  "https://black-dantella-client.onrender.com",
 ];
 // Middlewares
 app.use(express.json());
