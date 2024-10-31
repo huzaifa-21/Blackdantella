@@ -70,7 +70,6 @@ const ProductForm = ({ setLogedIn }) => {
 
   const checkAdmin = async () => {
     const response = await axiosInstance.get("/api/users/profile");
-    console.log(response.data.user.role);
     if (response.data.user.role == "admin") {
       setLogedIn(true);
     } else {
@@ -107,7 +106,6 @@ const ProductForm = ({ setLogedIn }) => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        withCredentials: true,
       });
       setProducts([...products, response.data.data]);
     } catch (error) {
