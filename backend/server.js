@@ -56,6 +56,7 @@ app.get("/robots.txt", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "robots.txt"));
 });
 
+
 app.use(
   compression({
     level: 6,
@@ -75,6 +76,16 @@ app.use("/api/users", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/payment", paymentRouter);
 app.use("/api/order", orderRouter);
+
+app.options(
+  "*",
+  cors({
+    origin: ["https://admin.blackdantella.com"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 
 // server listen
 app.listen(process.env.PORT || 4001, (req, res) => {
