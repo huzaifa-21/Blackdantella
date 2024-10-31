@@ -162,7 +162,7 @@ const addProduct = async (req, res) => {
       }
 
       matchingFiles.forEach((file) => {
-        if (file.size > 5 * 1024 * 1024) {
+        if (file.size > 20 * 1024 * 1024) {
           // Limit file size to 5MB
           console.warn(`File too large: ${file.originalname}`);
           return res.status(400).send({

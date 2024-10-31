@@ -107,6 +107,7 @@ const ProductForm = ({ setLogedIn }) => {
           "Content-Type": "multipart/form-data",
         },
       });
+      console.log(response)
       setProducts([...products, response.data.data]);
     } catch (error) {
       console.error(error);
