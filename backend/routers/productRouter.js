@@ -13,9 +13,12 @@ const router = express.Router();
 const storage = multer.diskStorage({
   destination: "uploads",
   filename: function (req, file, cb) {
-    return cb(null, Date.now() + "-" + file.originalname);
+    // Replace # symbols in the original filename
+    const sanitizedFilename = file.originalname.replace(/#/g, "");
+    cb(null, Date.now() + "-" + sanitizedFilename);
   },
 });
+
 
 const upload = multer({ storage: storage });
 
