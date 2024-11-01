@@ -1,110 +1,3 @@
-// import Product from "../models/productModel.js";
-// import fs from "fs";
-// import path from "path";
-// import { fileURLToPath } from "url";
-
-// // const getProducts = async (req, res) => {
-// //   try {
-// //     const { limit = 10, page = 1 } = req.query;
-// //     const skip = (page - 1) * limit;
-
-// //     const products = await Product.find({}).limit(limit).skip(skip);
-// //     res.status(200).send({ success: true, data: products });
-// //   } catch (error) {
-// //     res.status(400).send({ success: false, message: error.message });
-// //   }
-// // };
-
-// const getProducts = async (req, res) => {
-//   try {
-//     const { limit = 10, page = 1, category = "all" } = req.query;
-//     const skip = (page - 1) * limit;
-
-//     const query = category === "all" ? {} : { category };
-//     const totalProducts = await Product.countDocuments(query); // Total products based on the query
-//     const products = await Product.find(query)
-//       .skip(skip)
-//       .limit(parseInt(limit));
-
-//     res
-//       .status(200)
-//       .send({ success: true, data: products, total: totalProducts });
-//   } catch (error) {
-//     res.status(400).send({ success: false, message: error.message });
-//   }
-// };
-
-// const addProduct = async (req, res) => {
-//   try {
-//     const { name, price, description, category, colorVariants } = req.body;
-//     const colorVariantsData = JSON.parse(colorVariants);
-
-//     colorVariantsData.forEach((variant) => {
-//       variant.images = req.files
-//         .filter((file) => file.originalname.startsWith(variant.color))
-//         .map((file) => ({
-//           url: `/images/${file.filename}`,
-//           description: "",
-//         }));
-//       variant.sizes = variant.sizes.filter((size) => size.checked);
-//     });
-
-//     const newProduct = new Product({
-//       name,
-//       price,
-//       description,
-//       category,
-//       colorVariants: colorVariantsData,
-//     });
-
-//     await newProduct.save();
-//     res.status(201).send({ success: true, data: newProduct });
-//   } catch (error) {
-//     res.status(400).send({ success: false, message: error.message });
-//   }
-// };
-
-// const removeProduct = async (req, res) => {
-//   try {
-//     const { id } = req.body;
-//     const __filename = fileURLToPath(import.meta.url);
-//     const __dirname = path.dirname(__filename);
-//     // Find the product by ID
-//     const product = await Product.findById(id);
-//     if (!product) {
-//       return res
-//         .status(404)
-//         .send({ success: false, message: "Product not found" });
-//     }
-
-//     // Delete images from the filesystem
-//     product.colorVariants.forEach((variant) => {
-//       variant.images.forEach((image) => {
-//         // Ensure the file path is correctly constructed
-//         const imagePath = path.join(
-//           __dirname,
-//           "../uploads",
-//           image.url.replace("/images/", "")
-//         );
-
-//         if (fs.existsSync(imagePath)) {
-//           fs.unlinkSync(imagePath); // Delete the image file
-//         }
-//       });
-//     });
-
-//     // Delete the product from the database
-//     await Product.findByIdAndDelete(id);
-
-//     res
-//       .status(200)
-//       .send({ success: true, message: "Product deleted successfully" });
-//   } catch (error) {
-//     res.status(400).send({ success: false, message: error.message });
-//   }
-// };
-
-// export { addProduct, getProducts, removeProduct };
 
 import Product from "../models/productModel.js";
 import fs from "fs";
@@ -188,7 +81,9 @@ const getProducts = async (req, res) => {
 //           });
 //         }
 
-//         const webpFileName = `${Date.now()}-${file.originalname
+//         // Sanitize the filename to remove # symbols
+//         const sanitizedFilename = file.originalname.replace(/#/g, "");
+//         const webpFileName = `${Date.now()}-${sanitizedFilename
 //           .split(".")
 //           .slice(0, -1)
 //           .join(".")}.webp`;
@@ -249,14 +144,13 @@ const getProducts = async (req, res) => {
 //     res.status(400).send({ success: false, message: error.message });
 //   }
 // };
+
 const addProduct = async (req, res) => {
   try {
     const { name, price, description, category, colorVariants } = req.body;
     const colorVariantsData = JSON.parse(colorVariants);
 
-    const imageProcessingPromises = [];
-
-    colorVariantsData.forEach((variant) => {
+    for (const variant of colorVariantsData) {
       if (!variant.color) {
         console.error("Color is missing for variant:", variant);
         setCorsHeaders(res); // Add CORS headers
@@ -280,7 +174,7 @@ const addProduct = async (req, res) => {
         });
       }
 
-      matchingFiles.forEach((file) => {
+      for (const file of matchingFiles) {
         if (file.size > 20 * 1024 * 1024) {
           // 20MB limit
           console.warn(`File too large: ${file.originalname}`);
@@ -299,42 +193,38 @@ const addProduct = async (req, res) => {
           .join(".")}.webp`;
         const webpFilePath = path.join("uploads", webpFileName);
 
-        const processImage = async () => {
-          try {
-            let imageBuffer;
+        try {
+          let imageBuffer;
 
-            if (
-              file.mimetype === "image/heic" ||
-              file.mimetype === "image/heif"
-            ) {
-              const jpegBuffer = await heicConvert({
-                buffer: fs.readFileSync(file.path),
-                format: "JPEG",
-              });
-              imageBuffer = jpegBuffer;
-            } else {
-              imageBuffer = fs.readFileSync(file.path);
-            }
-
-            await sharp(imageBuffer).webp({ quality: 80 }).toFile(webpFilePath);
-            fs.unlinkSync(file.path); // Remove original file after processing
-            variant.images.push({
-              url: `/images/${webpFileName}`,
-              description: "",
+          if (
+            file.mimetype === "image/heic" ||
+            file.mimetype === "image/heif"
+          ) {
+            const jpegBuffer = await heicConvert({
+              buffer: fs.readFileSync(file.path),
+              format: "JPEG",
             });
-            console.log(`Image processed and URL added: ${webpFileName}`);
-          } catch (err) {
-            console.error(`Error converting image: ${err.message}`);
+            imageBuffer = jpegBuffer;
+          } else {
+            imageBuffer = fs.readFileSync(file.path);
           }
-        };
 
-        imageProcessingPromises.push(processImage());
-      });
+          await sharp(imageBuffer).webp({ quality: 80 }).toFile(webpFilePath);
+          fs.unlinkSync(file.path); // Remove original file after processing
+
+          // Add processed image URL in the exact order of the uploaded files
+          variant.images.push({
+            url: `/images/${webpFileName}`,
+            description: "",
+          });
+          console.log(`Image processed and URL added: ${webpFileName}`);
+        } catch (err) {
+          console.error(`Error converting image: ${err.message}`);
+        }
+      }
 
       variant.sizes = variant.sizes.filter((size) => size.checked);
-    });
-
-    await Promise.all(imageProcessingPromises); // Wait for all image processing to finish
+    }
 
     console.log("Processed Color Variants Data:", colorVariantsData);
 
