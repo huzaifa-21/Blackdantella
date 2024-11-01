@@ -156,6 +156,7 @@ const getProducts = async (req, res) => {
 //     colorVariantsData.forEach((variant) => {
 //       if (!variant.color) {
 //         console.error("Color is missing for variant:", variant);
+//         setCorsHeaders(res); // Add CORS headers
 //         return res.status(400).send({
 //           success: false,
 //           message: "Color is missing for one of the variants.",
@@ -169,6 +170,7 @@ const getProducts = async (req, res) => {
 
 //       if (matchingFiles.length === 0) {
 //         console.warn(`No matching files for color: ${variant.color}`);
+//         setCorsHeaders(res); // Add CORS headers
 //         return res.status(400).send({
 //           success: false,
 //           message: `No images found for color: ${variant.color}`,
@@ -177,8 +179,9 @@ const getProducts = async (req, res) => {
 
 //       matchingFiles.forEach((file) => {
 //         if (file.size > 20 * 1024 * 1024) {
-//           // Limit file size to 5MB
+//           // 20MB limit
 //           console.warn(`File too large: ${file.originalname}`);
+//           setCorsHeaders(res); // Add CORS headers
 //           return res.status(400).send({
 //             success: false,
 //             message: `File ${file.originalname} exceeds the maximum size limit of 5MB.`,
@@ -217,7 +220,6 @@ const getProducts = async (req, res) => {
 //             console.log(`Image processed and URL added: ${webpFileName}`);
 //           } catch (err) {
 //             console.error(`Error converting image: ${err.message}`);
-//             // Handle error gracefully, possibly notify the user
 //           }
 //         };
 
@@ -243,10 +245,10 @@ const getProducts = async (req, res) => {
 //     res.status(201).send({ success: true, data: newProduct });
 //   } catch (error) {
 //     console.error(`Error adding product: ${error.message}`);
+//     setCorsHeaders(res); // Add CORS headers
 //     res.status(400).send({ success: false, message: error.message });
 //   }
 // };
-
 const addProduct = async (req, res) => {
   try {
     const { name, price, description, category, colorVariants } = req.body;
@@ -289,7 +291,9 @@ const addProduct = async (req, res) => {
           });
         }
 
-        const webpFileName = `${Date.now()}-${file.originalname
+        // Sanitize the filename to remove # symbols
+        const sanitizedFilename = file.originalname.replace(/#/g, "");
+        const webpFileName = `${Date.now()}-${sanitizedFilename
           .split(".")
           .slice(0, -1)
           .join(".")}.webp`;
@@ -350,6 +354,7 @@ const addProduct = async (req, res) => {
     res.status(400).send({ success: false, message: error.message });
   }
 };
+
 
 const removeProduct = async (req, res) => {
   try {
