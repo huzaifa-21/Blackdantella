@@ -22,7 +22,7 @@ const setCorsHeaders = (res) => {
 
 const getProducts = async (req, res) => {
   try {
-    const { limit = 10, page = 1, category = "all" } = req.query;
+    const { limit = 12, page = 1, category = "all" } = req.query;
     const skip = (page - 1) * limit;
 
     const query = category === "all" ? {} : { category };
@@ -38,112 +38,6 @@ const getProducts = async (req, res) => {
     res.status(400).send({ success: false, message: error.message });
   }
 };
-
-// const addProduct = async (req, res) => {
-//   try {
-//     const { name, price, description, category, colorVariants } = req.body;
-//     const colorVariantsData = JSON.parse(colorVariants);
-
-//     const imageProcessingPromises = [];
-
-//     colorVariantsData.forEach((variant) => {
-//       if (!variant.color) {
-//         console.error("Color is missing for variant:", variant);
-//         setCorsHeaders(res); // Add CORS headers
-//         return res.status(400).send({
-//           success: false,
-//           message: "Color is missing for one of the variants.",
-//         });
-//       }
-
-//       variant.images = [];
-//       const matchingFiles = req.files.filter((file) =>
-//         file.originalname.startsWith(variant.color)
-//       );
-
-//       if (matchingFiles.length === 0) {
-//         console.warn(`No matching files for color: ${variant.color}`);
-//         setCorsHeaders(res); // Add CORS headers
-//         return res.status(400).send({
-//           success: false,
-//           message: `No images found for color: ${variant.color}`,
-//         });
-//       }
-
-//       matchingFiles.forEach((file) => {
-//         if (file.size > 20 * 1024 * 1024) {
-//           // 20MB limit
-//           console.warn(`File too large: ${file.originalname}`);
-//           setCorsHeaders(res); // Add CORS headers
-//           return res.status(400).send({
-//             success: false,
-//             message: `File ${file.originalname} exceeds the maximum size limit of 5MB.`,
-//           });
-//         }
-
-//         // Sanitize the filename to remove # symbols
-//         const sanitizedFilename = file.originalname.replace(/#/g, "");
-//         const webpFileName = `${Date.now()}-${sanitizedFilename
-//           .split(".")
-//           .slice(0, -1)
-//           .join(".")}.webp`;
-//         const webpFilePath = path.join("uploads", webpFileName);
-
-//         const processImage = async () => {
-//           try {
-//             let imageBuffer;
-
-//             if (
-//               file.mimetype === "image/heic" ||
-//               file.mimetype === "image/heif"
-//             ) {
-//               const jpegBuffer = await heicConvert({
-//                 buffer: fs.readFileSync(file.path),
-//                 format: "JPEG",
-//               });
-//               imageBuffer = jpegBuffer;
-//             } else {
-//               imageBuffer = fs.readFileSync(file.path);
-//             }
-
-//             await sharp(imageBuffer).webp({ quality: 80 }).toFile(webpFilePath);
-//             fs.unlinkSync(file.path); // Remove original file after processing
-//             variant.images.push({
-//               url: `/images/${webpFileName}`,
-//               description: "",
-//             });
-//             console.log(`Image processed and URL added: ${webpFileName}`);
-//           } catch (err) {
-//             console.error(`Error converting image: ${err.message}`);
-//           }
-//         };
-
-//         imageProcessingPromises.push(processImage());
-//       });
-
-//       variant.sizes = variant.sizes.filter((size) => size.checked);
-//     });
-
-//     await Promise.all(imageProcessingPromises); // Wait for all image processing to finish
-
-//     console.log("Processed Color Variants Data:", colorVariantsData);
-
-//     const newProduct = new Product({
-//       name,
-//       price,
-//       description,
-//       category,
-//       colorVariants: colorVariantsData,
-//     });
-
-//     await newProduct.save();
-//     res.status(201).send({ success: true, data: newProduct });
-//   } catch (error) {
-//     console.error(`Error adding product: ${error.message}`);
-//     setCorsHeaders(res); // Add CORS headers
-//     res.status(400).send({ success: false, message: error.message });
-//   }
-// };
 
 const addProduct = async (req, res) => {
   try {

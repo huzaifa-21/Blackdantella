@@ -24,7 +24,7 @@ export const isProductInStock = (product) => {
 const ProductDisplay = () => {
   const [category, setCategory] = useState("all");
   const [page, setPage] = useState(1);
-  const [limit] = useState(10); // Default limit for products per page
+  const [limit] = useState(12); // Default limit for products per page
   const [totalPages, setTotalPages] = useState(1); // Total pages for pagination
   const navigate = useNavigate();
   const disptach = useDispatch();
