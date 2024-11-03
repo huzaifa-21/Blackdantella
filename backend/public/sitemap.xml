@@ -5,52 +5,52 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" 
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
     <url>
-        <loc>https://blackdantella.com/</loc>
+        <loc>https://www.blackdantella.com/</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://blackdantella.com/about</loc>
+        <loc>https://www.blackdantella.com/about</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://blackdantella.com/policy</loc>
+        <loc>https://www.blackdantella.com/policy</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://blackdantella.com/terms</loc>
+        <loc>https://www.blackdantella.com/terms</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://blackdantella.com/cart</loc>
+        <loc>https://www.blackdantella.com/cart</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://blackdantella.com/account/login</loc>
+        <loc>https://www.blackdantella.com/account/login</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://blackdantella.com/account/register</loc>
+        <loc>https://www.blackdantella.com/account/register</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://blackdantella.com/profile</loc>
+        <loc>https://www.blackdantella.com/profile</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://blackdantella.com/order</loc>
+        <loc>https://www.blackdantella.com/order</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://blackdantella.com/myorders</loc>
+        <loc>https://www.blackdantella.com/myorders</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
