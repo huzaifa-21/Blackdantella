@@ -117,7 +117,7 @@ const Signup = ({ setLogedIn }) => {
         <title>Sign up</title>
         <link
           rel="canonical"
-          href="https://blackdantella.com/account/register"
+          href="https://www.blackdantella.com/account/register"
         />
       </Helmet>
       <Container>

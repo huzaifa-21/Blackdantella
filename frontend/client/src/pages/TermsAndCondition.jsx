@@ -8,7 +8,7 @@ const TermsAndCondition = () => {
     <>
       <Helmet>
         <title>Terms and Conditions</title>
-        <link rel="canonical" href="https://blackdantella.com/terms" />
+        <link rel="canonical" href="https://www.blackdantella.com/terms" />
       </Helmet>
       <div className="terms">
         <Container>

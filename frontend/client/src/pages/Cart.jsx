@@ -62,7 +62,7 @@ const Cart = () => {
       <>
         <Helmet>
           <title>Cart</title>
-          <link rel="canonical" href="https://blackdantella.com/cart" />
+          <link rel="canonical" href="https://www.blackdantella.com/cart" />
         </Helmet>
         <div className="no-products">
           <FontAwesomeIcon icon={faCube} /> No Products added

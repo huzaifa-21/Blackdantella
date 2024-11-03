@@ -18,7 +18,7 @@ const Home = () => {
     <>
       <Helmet>
         <title>Blackdantella</title>
-        <link rel="canonical" href="https://blackdantella.com/" />
+        <link rel="canonical" href="https://www.blackdantella.com/" />
       </Helmet>
       <div className="home" aria-label="homepage">
         <h1 className="welcome-heading">Enjoy our store</h1>

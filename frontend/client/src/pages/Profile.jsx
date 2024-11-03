@@ -160,7 +160,7 @@ const Profile = () => {
     <>
       <Helmet>
         <title>Profile</title>
-        <link rel="canonical" href="https://blackdantella.com/profile" />
+        <link rel="canonical" href="https://www.blackdantella.com/profile" />
       </Helmet>
       <div className="profile mt-5">
         <div className="profile-information">

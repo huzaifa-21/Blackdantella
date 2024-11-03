@@ -237,7 +237,7 @@ const Order = () => {
     <>
       <Helmet>
         <title>Checkout</title>
-        <link rel="canonical" href="https://blackdantella.com/order" />
+        <link rel="canonical" href="https://www.blackdantella.com/order" />
       </Helmet>
       <div className="order row">
         <div className="delivery-information col-12 col-md-8 col-lg-6">

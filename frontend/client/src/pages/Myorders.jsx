@@ -24,7 +24,7 @@ const Myorders = () => {
     <>
       <Helmet>
         <title>My Orders</title>
-        <link rel="canonical" href="https://blackdantella.com/myorders" />
+        <link rel="canonical" href="https://www.blackdantella.com/myorders" />
       </Helmet>
       <div className="my-orders">
         <Container>

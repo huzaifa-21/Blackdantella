@@ -100,7 +100,10 @@ const Login = ({ setLogedIn }) => {
     <>
       <Helmet>
         <title>Login</title>
-        <link rel="canonical" href="https://blackdantella.com/account/login" />
+        <link
+          rel="canonical"
+          href="https://www.blackdantella.com/account/login"
+        />
       </Helmet>
       <Container>
         <form className="login" onSubmit={handleSubmit} noValidate>

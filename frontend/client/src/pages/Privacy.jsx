@@ -7,7 +7,7 @@ const Privacy = () => {
     <>
       <Helmet>
         <title>Privacy Policy</title>
-        <link rel="canonical" href="https://blackdantella.com/policy" />
+        <link rel="canonical" href="https://www.blackdantella.com/policy" />
       </Helmet>
       <div className="privacy-policy">
         <Container>

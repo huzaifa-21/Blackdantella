@@ -6,7 +6,7 @@ const AboutUs = () => {
     <>
       <Helmet>
         <title>About us</title>
-        <link link rel="canonical" href="https://blackdantella.com/about" />
+        <link link rel="canonical" href="https://www.blackdantella.com/about" />
       </Helmet>
       <div className="about-us">
         <Container>
