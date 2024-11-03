@@ -291,7 +291,7 @@ const ProductDisplay = () => {
         {/* Pagination controls with bullets */}
         <>
           {paginatedProducts.length < 1 ? (
-            <div className="no-products">Out of {category}</div>
+            <div className="no-products">Coming soon</div>
           ) : (
             <div className="pagination">
               <button
