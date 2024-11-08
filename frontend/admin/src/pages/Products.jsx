@@ -25,7 +25,7 @@ const Products = () => {
 
   async function getProducts() {
     try {
-      const response = await axiosInstance.get("api/products");
+      const response = await axiosInstance.get("api/products/all");
       if (response.data.success) {
         setProducts(response.data.data);
         console.log(response.data.data[0]);

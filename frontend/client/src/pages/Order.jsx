@@ -10,9 +10,8 @@ import { fetchUserProfile } from "../context/slices/userSlice";
 import { Helmet } from "react-helmet";
 
 const Order = () => {
-  const delivery = 10; // Delivery fee
+  const delivery = 25; // Delivery fee
   const navigator = useNavigate();
-  // let cart = useSelector((state) => state.cart);
 
   const [total, setTotal] = useState(0);
   const [cartData, setCartData] = useState([]);
@@ -143,7 +142,7 @@ const Order = () => {
 
         try {
           const response = await axiosInstance.post("/api/order/place", {
-            amount: total,
+            amount: total + delivery,
             address: formData,
             items: cartData,
           });

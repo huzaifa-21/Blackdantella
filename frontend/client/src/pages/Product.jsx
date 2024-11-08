@@ -14,13 +14,14 @@ import { isProductInStock } from "../components/ProductDisplay";
 import axiosInstance from "../utils/axiosInstance";
 import { addToCart } from "../context/slices/CartSlice";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const Product = ({ loggedIn }) => {
   const { id } = useParams();
   let [quantity, setQuantity] = useState(1);
   const [products, setProducts] = useState();
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setQuantity(+e.target.value);
   };
@@ -30,7 +31,7 @@ const Product = ({ loggedIn }) => {
 
   useEffect(() => {
     async function fetchProducts() {
-      const response = await axiosInstance.get("api/products");
+      const response = await axiosInstance.get("api/products/all");
       setProducts(response.data.data);
     }
 
@@ -50,12 +51,12 @@ const Product = ({ loggedIn }) => {
       });
 
       if (response.data.success) {
-        return ("added to cart");
+        return "added to cart";
       } else {
-        return (response.data.message);
+        return response.data.message;
       }
     } catch (error) {
-      return ("Error adding cart", error.message);
+      return "Error adding cart", error.message;
     }
   }
 
@@ -191,6 +192,7 @@ const Product = ({ loggedIn }) => {
                             quantity,
                           })
                         );
+                        toast.success("Added To Cart");
                       } else {
                         navigate("/account/login");
                       }
@@ -198,7 +200,34 @@ const Product = ({ loggedIn }) => {
                   >
                     Add To Cart <FontAwesomeIcon icon={faCartShopping} />
                   </button>
-                  <button disabled={!inStock} className="buy-now main-button">
+                  <button
+                    disabled={!inStock}
+                    className="buy-now main-button"
+                    onClick={() => {
+                      if (loggedIn) {
+                        addCartData(
+                          product.name,
+                          id,
+                          currColor,
+                          document.querySelector("#size").value,
+                          quantity,
+                          product.colorVariants[color].images[0].url,
+                          product.price
+                        );
+                        dispatch(
+                          addToCart({
+                            id,
+                            color: currColor,
+                            size: document.querySelector("#size").value,
+                            quantity,
+                          })
+                        );
+                        navigate("/order");
+                      } else {
+                        navigate("/account/login");
+                      }
+                    }}
+                  >
                     Buy It Now
                   </button>
                 </div>

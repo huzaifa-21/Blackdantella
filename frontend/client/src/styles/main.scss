@@ -1,5 +1,4 @@
 @import "./base/variables";
-@import "./utils/sweealert";
 @import "./base/global";
 @import "./utils/mixins";
 @import "./components/navbar";
@@ -18,4 +17,6 @@
 @import "./components//productDisplay";
 @import "./components/sorting";
 @import "./components/footer";
+@import "./utils/sweealert";
+@import "./utils/toastify";
 @import "./utils/animation";

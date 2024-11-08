@@ -19,8 +19,10 @@ import TermsAndCondition from "./pages/TermsAndCondition";
 import Privacy from "./pages/Privacy";
 import AboutUs from "./pages/AboutUs";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartItems } from "./context/slices/CartSlice";
+// import { fetchCartItems } from "./context/slices/CartSlice";
 import { fetchUserProfile } from "./context/slices/userSlice";
+import { ToastContainer } from "react-toastify";
+
 
 const App = () => {
   const [loggedIn, setLogedIn] = useState(false);
@@ -39,6 +41,21 @@ const App = () => {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="dark"
+        toastStyle={{
+          backgroundColor: "#333", // Toast background color
+          color: "#fff", // Text color
+        }}
+        
+      />
+
       <Navbar loggedIn={loggedIn} />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -58,7 +75,7 @@ const App = () => {
         <Route path="/myorders" element={<Myorders />} />
         <Route path="/terms" element={<TermsAndCondition />} />
         <Route path="/policy" element={<Privacy />} />
-        <Route path="/about"  element={<AboutUs />} />
+        <Route path="/about" element={<AboutUs />} />
       </Routes>
       <Footer />
     </>

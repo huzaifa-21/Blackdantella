@@ -1,0 +1,22 @@
+/* Overriding Toastify CSS */
+.Toastify__toast-icon svg {
+  fill: $mainColor !important; /* Success icon color */
+}
+
+.Toastify__toast--error svg {
+  fill: $outStock !important; /* Error icon color */
+}
+
+/* Customize the default progress bar color globally */
+.Toastify__progress-bar--success {
+  background-color: $mainColor !important;
+}
+
+/* Customize the default progress bar color globally */
+.Toastify__progress-bar--error {
+  background-color: $outStock !important;
+}
+
+.Toastify__toast-container--top-right {
+  top: 50px !important;
+}

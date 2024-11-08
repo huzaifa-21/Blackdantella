@@ -1,4 +1,3 @@
-
 import Product from "../models/productModel.js";
 import fs from "fs";
 import path from "path";
@@ -19,7 +18,14 @@ const setCorsHeaders = (res) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
 };
 
-
+const getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.status(200).send({ success: true, data: products });
+  } catch (error) {
+    res.status(400).send({ success: false, message: error.message });
+  }
+};
 const getProducts = async (req, res) => {
   try {
     const { limit = 12, page = 1, category = "all" } = req.query;
@@ -139,7 +145,6 @@ const addProduct = async (req, res) => {
   }
 };
 
-
 const removeProduct = async (req, res) => {
   try {
     const { id } = req.body;
@@ -180,4 +185,4 @@ const removeProduct = async (req, res) => {
   }
 };
 
-export { addProduct, getProducts, removeProduct };
+export { addProduct, getProducts, removeProduct,getAllProducts };

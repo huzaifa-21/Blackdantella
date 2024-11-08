@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import {
   addProduct,
+  getAllProducts,
   getProducts,
   removeProduct,
 } from "../controllers/productController.js";
@@ -30,6 +31,7 @@ router.post(
   addProduct
 );
 router.get("/", getProducts);
+router.get("/all", getAllProducts);
 router.post("/remove", verifyToken, checkRole("admin"), removeProduct);
 
 export default router;

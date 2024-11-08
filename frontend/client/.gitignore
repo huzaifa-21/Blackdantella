@@ -14,7 +14,7 @@ dist-ssr
 
 # My directories files
 utils/countries.jsx
-
+Todo.todo
 /.env
 
 # Editor directories and files
