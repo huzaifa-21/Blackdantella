@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { category_items } from "../assets/assets";
 import { Container } from "react-bootstrap";
@@ -54,18 +53,22 @@ const ProductDisplay = () => {
   const renderPaginationBullets = () => {
     if (totalPages < 1) return null; // Don't render pagination if only one page
 
-    return Array.from({ length: totalPages }, (_, i ) => (
+    return Array.from({ length: totalPages }, (_, i) => (
       <span
         key={i + 1}
         className={`pagination-bullet ${i + 1 === page ? "active" : ""}`}
         onClick={() => handlePageChange(i + 1)}
       >
-        {i + 1 }
+        {i + 1}
       </span>
     ));
   };
-console.log(products);
+  console.log(status);
 
+  if (status !== "succeeded") {
+    return <div className="spinner"></div>;
+  }
+  
   return (
     <div className="product-display">
       <Container>
@@ -117,9 +120,7 @@ console.log(products);
           </div>
         )}
 
-        {!products || products.length < 1 ? (
-          null
-        ) : (
+        {products.length < 1 ? null : (
           <div className="pagination">
             <button
               className="pagination-button"
@@ -128,7 +129,7 @@ console.log(products);
             >
               Previous
             </button>
-            {renderPaginationBullets() }
+            {renderPaginationBullets()}
             <button
               className="pagination-button"
               onClick={() => handlePageChange(page + 1)}
