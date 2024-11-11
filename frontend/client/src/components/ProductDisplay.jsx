@@ -63,12 +63,11 @@ const ProductDisplay = () => {
       </span>
     ));
   };
-  console.log(status);
 
   if (status !== "succeeded") {
     return <div className="spinner"></div>;
   }
-  
+
   return (
     <div className="product-display">
       <Container>

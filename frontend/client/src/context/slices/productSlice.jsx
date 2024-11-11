@@ -8,7 +8,7 @@ export const fetchProducts = createAsyncThunk(
         `${config.BASE_URL}/api/products?page=${page}&limit=${limit}&category=${category}`
       );
       const data = await response.json();
-
+      // console.log(data)
       if (data.success) {
         console.log(data)
         return { products: data, total: data.total }; 

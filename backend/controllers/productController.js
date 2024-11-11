@@ -20,7 +20,7 @@ const setCorsHeaders = (res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find().sort({createdAt:-1});
     res.status(200).send({ success: true, data: products });
   } catch (error) {
     res.status(400).send({ success: false, message: error.message });
@@ -34,6 +34,7 @@ const getProducts = async (req, res) => {
     const query = category === "all" ? {} : { category };
     const totalProducts = await Product.countDocuments(query); // Total products based on the query
     const products = await Product.find(query)
+      .sort({ _id: -1 })
       .skip(skip)
       .limit(parseInt(limit));
 
