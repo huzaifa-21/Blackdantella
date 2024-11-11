@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { fetchCartItems } from "./context/slices/CartSlice";
 import { fetchUserProfile } from "./context/slices/userSlice";
 import { ToastContainer } from "react-toastify";
+import ScrollToTop from "./utils/ScrollToTop";
 
 
 const App = () => {
@@ -55,7 +56,7 @@ const App = () => {
         }}
         
       />
-
+      <ScrollToTop />
       <Navbar loggedIn={loggedIn} />
       <Routes>
         <Route path="/" element={<Home />} />

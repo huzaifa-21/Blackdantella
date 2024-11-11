@@ -21,7 +21,7 @@ const Home = () => {
         <link rel="canonical" href="https://www.blackdantella.com/" />
       </Helmet>
       <div className="home" aria-label="homepage">
-        <h1 className="welcome-heading">Enjoy our store</h1>
+        <h1 className="welcome-heading">Handmade Store</h1>
         <Sorting />
         <ProductDisplay />
       </div>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDownLong } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "react-bootstrap";
@@ -88,7 +87,7 @@ const ProductForm = ({ setLogedIn }) => {
     formData.append("name", product.name);
     formData.append("price", product.price);
     formData.append("description", product.description);
-    formData.append("category", product.category || "scrunches");
+    formData.append("category", product.category || "scrunchies");
     formData.append("colorVariants", JSON.stringify(product.colorVariants));
 
     product.colorVariants.forEach((variant) => {
@@ -221,6 +220,8 @@ const ProductForm = ({ setLogedIn }) => {
                       value={size.quantity}
                       onChange={handleSizeChange(index)}
                       placeholder="Quantity"
+                      required
+                      minLength={1}
                     />
                   )}
                 </div>
