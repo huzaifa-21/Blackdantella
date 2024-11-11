@@ -59,10 +59,10 @@ const ProductForm = ({ setLogedIn }) => {
       color: "",
       images: [],
       sizes: [
-        { size: "S", quantity: 0, checked: false },
-        { size: "M", quantity: 0, checked: false },
-        { size: "L", quantity: 0, checked: false },
-        { size: "XL", quantity: 0, checked: false },
+        { size: "S", quantity: 1, checked: false },
+        { size: "M", quantity: 1, checked: true },
+        { size: "L", quantity: 1, checked: false },
+        { size: "XL", quantity: 1, checked: true },
       ],
     });
   };
