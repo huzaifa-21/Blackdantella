@@ -6,6 +6,7 @@ import bandas_icon from "./bandas-icon.svg";
 import prayer_icon from "./prayer-icon.svg";
 import hijab_icon from "./hijab-icon.svg";
 import accessories_icon from "./accessorie-icon.svg";
+import national_day from "./final.svg";
 import apple_logo from "./apple-icon.svg";
 import google_logo from "./google-icon.svg";
 import black_logo from "./black-logo.svg";
@@ -20,6 +21,10 @@ export const assets = {
 };
 
 export const category_items = [
+   {
+    img: national_day,
+    name:"national-day"
+  },
   {
     img: scrunches_icon,
     name: "scrunchies",
@@ -32,12 +37,13 @@ export const category_items = [
     img: bandas_icon,
     name: "head-band",
   },
-  {
-    img: prayer_icon,
-    name: "prayer-veil",
-  },
+  // {
+  //   img: prayer_icon,
+  //   name: "prayer-veil",
+  // },
   {
     img: hijab_icon,
     name: "hijabs",
   },
+ 
 ];

@@ -145,10 +145,10 @@ const Login = ({ setLogedIn }) => {
             Continue With Google
           </div>
 
-          <div className="social-login">
+          {/* <div className="social-login">
             <img src={assets.apple_logo} alt="Apple Logo" />
             Continue With Apple
-          </div>
+          </div> */}
           <a href="/account/register" className="create-account">
             Create Account
           </a>

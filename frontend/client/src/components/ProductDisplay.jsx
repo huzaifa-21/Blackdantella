@@ -64,10 +64,6 @@ const ProductDisplay = () => {
     ));
   };
 
-  if (status !== "succeeded") {
-    return <div className="spinner"></div>;
-  }
-
   return (
     <div className="product-display">
       <Container>
@@ -87,8 +83,9 @@ const ProductDisplay = () => {
             </div>
           ))}
         </div>
-
-        {!products || products.length < 1 ? (
+        {status !== "succeeded" ? (
+          <div className="spinner"></div>
+        ) : !products || products.length < 1 ? (
           <div className="no-products">Coming soon</div>
         ) : (
           <div className="row">

@@ -26,6 +26,7 @@ const getAllProducts = async (req, res) => {
     res.status(400).send({ success: false, message: error.message });
   }
 };
+
 const getProducts = async (req, res) => {
   try {
     const { limit = 12, page = 1, category = "all" } = req.query;

@@ -163,6 +163,7 @@ const ProductForm = ({ setLogedIn }) => {
                 <option value="head-band">head-band</option>
                 <option value="prayer-veil">prayer-veil</option>
                 <option value="hijabs">Hijabs</option>
+                <option value="national-day">national-day</option>
               </select>
               <FontAwesomeIcon icon={faArrowDownLong} />
             </div>

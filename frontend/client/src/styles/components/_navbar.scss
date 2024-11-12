@@ -53,6 +53,9 @@
     text-align: right;
     color: $mainColor;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: right;
     @media (max-width: 991px) {
       width: 150px;
     }

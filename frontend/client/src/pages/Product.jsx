@@ -9,34 +9,25 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Carousel } from "react-bootstrap";
 import config from "../config/config";
-import mustLoggedIn from "../utils/mustLoggedIn";
 import { isProductInStock } from "../components/ProductDisplay";
 import axiosInstance from "../utils/axiosInstance";
 import { addToCart } from "../context/slices/CartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const Product = ({ loggedIn }) => {
   const { id } = useParams();
-  let [quantity, setQuantity] = useState(1);
-  const [products, setProducts] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleChange = (e) => {
-    setQuantity(+e.target.value);
-  };
+  let [quantity, setQuantity] = useState(1);
   let [color, setColor] = useState(0);
   let [currColor, setCurrColor] = useState("black");
   let [active, setActive] = useState("all");
-
-  useEffect(() => {
-    async function fetchProducts() {
-      const response = await axiosInstance.get("api/products/all");
-      setProducts(response.data.data);
-    }
-
-    fetchProducts();
-  }, []);
+  const { allProducts:products } = useSelector((state) => state.products)
+  
+  const handleChange = (e) => {
+    setQuantity(+e.target.value);
+  };
 
   async function addCartData(name, id, color, size, quantity, image, price) {
     try {

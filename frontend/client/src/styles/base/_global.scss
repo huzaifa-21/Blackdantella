@@ -65,6 +65,13 @@ select {
   img {
     width: 40px;
   }
+  @media (max-width:576px) {
+    padding: 5px;
+    font-size: 12px;
+    img {
+      width: 30px;
+    }
+  }
 }
 
 %button-hover {

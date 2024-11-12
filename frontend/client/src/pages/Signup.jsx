@@ -190,10 +190,10 @@ const Signup = ({ setLogedIn }) => {
               <img src={assets.google_logo} alt="" />
               Continue With Google
             </div>
-            <div className="social-login">
+            {/* <div className="social-login">
               <img src={assets.apple_logo} alt="" />
               Continue With Apple
-            </div>
+            </div> */}
           </div>
         </form>
       </Container>

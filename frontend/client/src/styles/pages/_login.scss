@@ -8,6 +8,9 @@
   position: relative;
   overflow: hidden;
   animation: fadeIn $mainTransition;
+  @media (max-width: 576px) {
+    padding: 30px 24px;
+  }
   > :not(div) {
     text-align: center;
   }
@@ -36,6 +39,9 @@
     margin-top: 15px;
     padding: 14px;
     caret-color: $mainColor;
+    @media (max-width: 576px) {
+      font-size: 13px;
+    }
   }
   .input-holder {
     position: relative;
@@ -55,6 +61,15 @@
     padding: 13px;
     margin: 29px auto;
     display: block;
+    @media (max-width: 576px) {
+      padding: 15px;
+      width: 122px;
+      text-align: center;
+      border-radius: 44px;
+      padding: 9px;
+      margin: 21px auto;
+      font-size: 13px;
+    }
   }
   .or {
     width: 100%;
@@ -83,7 +98,8 @@
     color: white;
     margin-top: 30px;
     display: block;
+    @media (max-width: 576px) {
+      font-size: 13px;
+    }
   }
 }
-
-
