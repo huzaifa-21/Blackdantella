@@ -31,6 +31,10 @@ const ProductDisplay = () => {
     status,
   } = useSelector((state) => state.products);
 
+  useEffect(() => {
+   window.scrollTo(0, 0);
+  },[products])
+
   // Calculate totalPages based on total and limit
   const totalPages = Math.ceil(total / limit) || 1;
 
