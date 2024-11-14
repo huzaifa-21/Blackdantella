@@ -8,7 +8,7 @@
   border-bottom: 1px solid $hrColor;
   flex-wrap: nowrap;
   & + *:not(.spinner) {
-    min-height: 43vh;
+    min-height: 47vh;
     padding-bottom: 50px;
   }
   .logo {
