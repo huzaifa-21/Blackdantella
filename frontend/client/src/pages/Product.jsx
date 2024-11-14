@@ -23,7 +23,8 @@ const Product = ({ loggedIn }) => {
   let [color, setColor] = useState(0);
   let [currColor, setCurrColor] = useState("black");
   let [active, setActive] = useState("all");
-  const { allProducts:products } = useSelector((state) => state.products)
+  const { allProducts: products } = useSelector((state) => state.products);
+  const [isLoaded, setIsLoaded] = useState(false);
   
   const handleChange = (e) => {
     setQuantity(+e.target.value);

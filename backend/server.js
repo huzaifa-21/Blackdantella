@@ -49,12 +49,13 @@ app.use(
   express.static(path.join(__dirname, "uploads"), { maxAge: "1y", etag: false })
 );
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  express.static(path.join(__dirname, "public"), { maxAge: "1y", etag: false })
+);
 
 app.get("/robots.txt", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "robots.txt"));
 });
-
 
 app.use(
   compression({

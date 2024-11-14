@@ -107,8 +107,7 @@ const ProductDisplay = () => {
                     <img
                       src="https://placehold.co/600x800?text=image"
                       className="image-loading"
-                      style={{ width: "100%" ,filter:"blur(3px)"}}
-                      
+                      style={{ width: "100%", filter: "blur(3px)",zIndex:1 }}
                     />
                   )}
                   <img
@@ -116,7 +115,13 @@ const ProductDisplay = () => {
                     alt={`${product.category}-image`}
                     loading={index > 3 ? "lazy" : "eager"}
                     onLoad={() => setIsLoaded(true)}
-                    style={{ display: isLoaded ? "block" : "none" }}
+                    style={{
+                      display: isLoaded ? "block" : "none", // Main image shows after it's loaded
+                      width: "100%", // Ensure both images are of the same size
+                      position: "relative", // Main image appears over the placeholder
+                      zIndex: 2, // Main image on top
+                      transition: "opacity 0.5s ease-in-out", // Smooth fade-in effect
+                    }}
                   />
                   <span className="product-name">{product.name}</span>
                   <span className="product-price">{product.price} AED</span>

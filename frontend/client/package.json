@@ -21,6 +21,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "@stripe/react-stripe-js": "^2.8.0",
     "@stripe/stripe-js": "^4.4.0",
+    "@vitejs/plugin-legacy": "^5.4.3",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
@@ -30,7 +31,7 @@
     "normalize.css": "^8.0.1",
     "postcss": "^8.4.47",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.10.2",
+    "react-bootstrap": "^2.10.5",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-lazyload": "^3.2.1",
@@ -39,7 +40,8 @@
     "react-toastify": "^10.0.5",
     "sass": "^1.77.2",
     "sweetalert2": "^11.14.3",
-    "validator": "^13.12.0"
+    "validator": "^13.12.0",
+    "vite-plugin-svgr": "^4.3.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -49,7 +51,8 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "vite": "^4.4.5"
+    "vite": "^5.4.11",
+    "vite-plugin-istanbul": "^6.0.2"
   },
   "browserslist": [
     "> 1%",
