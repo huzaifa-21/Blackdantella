@@ -189,7 +189,9 @@ const ProductDisplay = () => {
                     <img
                       src="https://placehold.co/600x800?text=image"
                       className="image-loading"
-                      style={{ width: "100%", filter: "blur(3px)", zIndex: 1 }}
+                      style={{ filter: "blur(3px)", zIndex: 1 }}
+                      width={100}
+                      height={200}
                     />
                   )}
                   <img
@@ -197,12 +199,11 @@ const ProductDisplay = () => {
                     alt={`${product.category}-image`}
                     loading={index > 3 ? "lazy" : "none"}
                     onLoad={() => setIsLoaded(true)}
-                    width="640"
-                    height="360"
+                    width={100}
+                    height={200}
                     style={{
                       opacity: isLoaded ? 1 : 0,
                       transition: "opacity 0.5s ease-in-out",
-                      width: "100%",
                     }}
                   />
 

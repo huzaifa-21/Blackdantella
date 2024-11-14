@@ -15,7 +15,7 @@ const Footer = () => {
       <Container>
         <div className="row">
           <div className="col-12 col-md-6 col-lg-3">
-            <img src={assets.black_logo} alt="" />
+            <img width={300} height={100} src={assets.black_logo} alt="" />
           </div>
           <div className="col-6 col-md-6 col-lg-3">
             <div className="quick-links">
