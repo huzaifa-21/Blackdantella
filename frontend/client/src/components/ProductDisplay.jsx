@@ -23,6 +23,7 @@ const ProductDisplay = () => {
   const limit = 12;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Get product data and total from Redux
   const {
@@ -32,8 +33,8 @@ const ProductDisplay = () => {
   } = useSelector((state) => state.products);
 
   useEffect(() => {
-   window.scrollTo(0, 0);
-  },[products])
+    window.scrollTo(0, 0);
+  }, [products]);
 
   // Calculate totalPages based on total and limit
   const totalPages = Math.ceil(total / limit) || 1;
@@ -93,7 +94,7 @@ const ProductDisplay = () => {
           <div className="no-products">Coming soon</div>
         ) : (
           <div className="row">
-            {products.map((product,index) => (
+            {products.map((product, index) => (
               <div
                 key={product._id}
                 className="col-6 col-sm-6 col-md-4 col-lg-3 mb-4"
@@ -102,10 +103,20 @@ const ProductDisplay = () => {
                   className="product"
                   onClick={() => navigate(`/product/${product._id}`)}
                 >
+                  {!isLoaded && (
+                    <img
+                      src="https://placehold.co/600x800?text=image"
+                      className="image-loading"
+                      style={{ width: "100%" ,filter:"blur(3px)"}}
+                      
+                    />
+                  )}
                   <img
                     src={`${config.BASE_URL}${product.colorVariants[0].images[0].url}`}
                     alt={`${product.category}-image`}
-                    loading={index > 3?"lazy":"eager"}
+                    loading={index > 3 ? "lazy" : "eager"}
+                    onLoad={() => setIsLoaded(true)}
+                    style={{ display: isLoaded ? "block" : "none" }}
                   />
                   <span className="product-name">{product.name}</span>
                   <span className="product-price">{product.price} AED</span>
