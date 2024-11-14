@@ -107,22 +107,25 @@ const ProductDisplay = () => {
                     <img
                       src="https://placehold.co/600x800?text=image"
                       className="image-loading"
-                      style={{ width: "100%", filter: "blur(3px)",zIndex:1 }}
+                      style={{ width: "100%", filter: "blur(3px)", zIndex: 1 }}
                     />
                   )}
                   <img
+                    srcSet={`${config.BASE_URL}${product.colorVariants[0].images[0].url}?w=300 300w, 
+                    ${config.BASE_URL}${product.colorVariants[0].images[0].url}?w=600 600w, 
+                    ${config.BASE_URL}${product.colorVariants[0].images[0].url}?w=1200 1200w`}
+                    sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
                     src={`${config.BASE_URL}${product.colorVariants[0].images[0].url}`}
                     alt={`${product.category}-image`}
                     loading={index > 3 ? "lazy" : "eager"}
                     onLoad={() => setIsLoaded(true)}
                     style={{
-                      display: isLoaded ? "block" : "none", // Main image shows after it's loaded
-                      width: "100%", // Ensure both images are of the same size
-                      position: "relative", // Main image appears over the placeholder
-                      zIndex: 2, // Main image on top
-                      transition: "opacity 0.5s ease-in-out", // Smooth fade-in effect
+                      opacity: isLoaded ? 1 : 0,
+                      transition: "opacity 0.5s ease-in-out",
+                      width: "100%",
                     }}
                   />
+
                   <span className="product-name">{product.name}</span>
                   <span className="product-price">{product.price} AED</span>
                   {isProductInStock(product) ? (
