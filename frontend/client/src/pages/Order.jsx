@@ -400,7 +400,11 @@ const Order = () => {
             <span>Total</span>
             <span>{total + delivery} AED</span>
           </div>
-          <button onClick={handleSubmit} className="main-button">
+          <button
+            disabled={total && profile ? false : true}
+            onClick={handleSubmit}
+            className="main-button"
+          >
             Proceed to Payment
           </button>
         </div>
