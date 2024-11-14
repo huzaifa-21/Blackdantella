@@ -55,19 +55,102 @@ const ProductDisplay = () => {
     setPage(1); // Reset to page 1 when category changes
   };
 
-  const renderPaginationBullets = () => {
-    if (totalPages < 1) return null; // Don't render pagination if only one page
+  // const renderPaginationBullets = () => {
+  //   if (totalPages < 1) return null; // Don't render pagination if only one page
 
-    return Array.from({ length: totalPages }, (_, i) => (
+  //   return Array.from({ length: totalPages }, (_, i) => (
+  //     <span
+  //       key={i + 1}
+  //       className={`pagination-bullet ${i + 1 === page ? "active" : ""}`}
+  //       onClick={() => handlePageChange(i + 1)}
+  //     >
+  //       {i + 1}
+  //     </span>
+  //   ));
+  // };
+  
+  const renderPaginationBullets = () => {
+    if (totalPages < 1) return null;
+
+    const pages = [];
+    const maxStartPages = 1; // Number of pages to show at the start
+    const maxEndPages = 1; // Number of pages to show at the end
+
+    // Show all pages without ellipses if totalPages is 3 or less
+    if (totalPages <= 3) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(
+          <span
+            key={i}
+            className={`pagination-bullet ${page === i ? "active" : ""}`}
+            onClick={() => handlePageChange(i)}
+          >
+            {i}
+          </span>
+        );
+      }
+      return pages;
+    }
+
+    // Show the first page
+    pages.push(
       <span
-        key={i + 1}
-        className={`pagination-bullet ${i + 1 === page ? "active" : ""}`}
-        onClick={() => handlePageChange(i + 1)}
+        key={1}
+        className={`pagination-bullet ${page === 1 ? "active" : ""}`}
+        onClick={() => handlePageChange(1)}
       >
-        {i + 1}
+        1
       </span>
-    ));
+    );
+
+    // Show ellipses if the current page is beyond the first few pages
+    if (page > 3) {
+      pages.push(
+        <span key="start-ellipsis" className="pagination-ellipsis">
+          ...
+        </span>
+      );
+    }
+
+    // Show up to two pages around the current page
+    const startPage = Math.max(2, page - 1);
+    const endPage = Math.min(totalPages - 1, page + 1);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(
+        <span
+          key={i}
+          className={`pagination-bullet ${page === i ? "active" : ""}`}
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </span>
+      );
+    }
+
+    // Show ellipses if there are pages between the current range and the last page
+    if (page < totalPages - 2) {
+      pages.push(
+        <span key="end-ellipsis" className="pagination-ellipsis">
+          ...
+        </span>
+      );
+    }
+
+    // Show the last page
+    pages.push(
+      <span
+        key={totalPages}
+        className={`pagination-bullet ${page === totalPages ? "active" : ""}`}
+        onClick={() => handlePageChange(totalPages)}
+      >
+        {totalPages}
+      </span>
+    );
+
+    return pages;
   };
+
 
   return (
     <div className="product-display">
