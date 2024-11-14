@@ -68,7 +68,7 @@ const ProductDisplay = () => {
   //     </span>
   //   ));
   // };
-  
+
   const renderPaginationBullets = () => {
     if (totalPages < 1) return null;
 
@@ -151,7 +151,6 @@ const ProductDisplay = () => {
     return pages;
   };
 
-
   return (
     <div className="product-display">
       <Container>
@@ -194,10 +193,6 @@ const ProductDisplay = () => {
                     />
                   )}
                   <img
-                    srcSet={`${config.BASE_URL}${product.colorVariants[0].images[0].url}?w=300 300w, 
-                    ${config.BASE_URL}${product.colorVariants[0].images[0].url}?w=600 600w, 
-                    ${config.BASE_URL}${product.colorVariants[0].images[0].url}?w=1200 1200w`}
-                    sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
                     src={`${config.BASE_URL}${product.colorVariants[0].images[0].url}`}
                     alt={`${product.category}-image`}
                     loading={index > 3 ? "lazy" : "none"}

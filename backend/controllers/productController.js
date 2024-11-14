@@ -5,18 +5,18 @@ import { fileURLToPath } from "url";
 import sharp from "sharp"; // Import sharp for image processing
 import heicConvert from "heic-convert"; // Import heic-convert for HEIC files
 
-const setCorsHeaders = (res) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://admin.blackdantella.com"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, DELETE"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-};
+// const setCorsHeaders = (res) => {
+//   res.setHeader(
+//     "Access-Control-Allow-Origin",
+//     "https://admin.blackdantella.com"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, OPTIONS, PUT, DELETE"
+//   );
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   res.setHeader("Access-Control-Allow-Credentials", "true");
+// };
 
 const getAllProducts = async (req, res) => {
   try {
@@ -46,6 +46,106 @@ const getProducts = async (req, res) => {
     res.status(400).send({ success: false, message: error.message });
   }
 };
+
+// const addProduct = async (req, res) => {
+//   try {
+//     const { name, price, description, category, colorVariants } = req.body;
+//     const colorVariantsData = JSON.parse(colorVariants);
+
+//     for (const variant of colorVariantsData) {
+//       if (!variant.color) {
+//         console.error("Color is missing for variant:", variant);
+//         setCorsHeaders(res); // Add CORS headers
+//         return res.status(400).send({
+//           success: false,
+//           message: "Color is missing for one of the variants.",
+//         });
+//       }
+
+//       variant.images = [];
+//       const matchingFiles = req.files.filter((file) =>
+//         file.originalname.startsWith(variant.color)
+//       );
+
+//       if (matchingFiles.length === 0) {
+//         console.warn(`No matching files for color: ${variant.color}`);
+//         setCorsHeaders(res); // Add CORS headers
+//         return res.status(400).send({
+//           success: false,
+//           message: `No images found for color: ${variant.color}`,
+//         });
+//       }
+
+//       for (const file of matchingFiles) {
+//         if (file.size > 20 * 1024 * 1024) {
+//           // 20MB limit
+//           console.warn(`File too large: ${file.originalname}`);
+//           setCorsHeaders(res); // Add CORS headers
+//           return res.status(400).send({
+//             success: false,
+//             message: `File ${file.originalname} exceeds the maximum size limit of 5MB.`,
+//           });
+//         }
+
+//         // Sanitize the filename to remove # symbols
+//         const sanitizedFilename = file.originalname.replace(/#/g, "");
+//         const webpFileName = `${Date.now()}-${sanitizedFilename
+//           .split(".")
+//           .slice(0, -1)
+//           .join(".")}.webp`;
+//         const webpFilePath = path.join("uploads", webpFileName);
+
+//         try {
+//           let imageBuffer;
+
+//           if (
+//             file.mimetype === "image/heic" ||
+//             file.mimetype === "image/heif"
+//           ) {
+//             const jpegBuffer = await heicConvert({
+//               buffer: fs.readFileSync(file.path),
+//               format: "JPEG",
+//             });
+//             imageBuffer = jpegBuffer;
+//           } else {
+//             imageBuffer = fs.readFileSync(file.path);
+//           }
+
+//           await sharp(imageBuffer).webp({ quality: 80 }).toFile(webpFilePath);
+//           fs.unlinkSync(file.path); // Remove original file after processing
+
+//           // Add processed image URL in the exact order of the uploaded files
+//           variant.images.push({
+//             url: `/images/${webpFileName}`,
+//             description: "",
+//           });
+//           console.log(`Image processed and URL added: ${webpFileName}`);
+//         } catch (err) {
+//           console.error(`Error converting image: ${err.message}`);
+//         }
+//       }
+
+//       variant.sizes = variant.sizes.filter((size) => size.checked);
+//     }
+
+//     console.log("Processed Color Variants Data:", colorVariantsData);
+
+//     const newProduct = new Product({
+//       name,
+//       price,
+//       description,
+//       category,
+//       colorVariants: colorVariantsData,
+//     });
+
+//     await newProduct.save();
+//     res.status(201).send({ success: true, data: newProduct });
+//   } catch (error) {
+//     console.error(`Error adding product: ${error.message}`);
+//     setCorsHeaders(res); // Add CORS headers
+//     res.status(400).send({ success: false, message: error.message });
+//   }
+// };
 
 const addProduct = async (req, res) => {
   try {
@@ -86,8 +186,6 @@ const addProduct = async (req, res) => {
             message: `File ${file.originalname} exceeds the maximum size limit of 5MB.`,
           });
         }
-
-        // Sanitize the filename to remove # symbols
         const sanitizedFilename = file.originalname.replace(/#/g, "");
         const webpFileName = `${Date.now()}-${sanitizedFilename
           .split(".")
@@ -111,10 +209,15 @@ const addProduct = async (req, res) => {
             imageBuffer = fs.readFileSync(file.path);
           }
 
-          await sharp(imageBuffer).webp({ quality: 80 }).toFile(webpFilePath);
+          // Compress with sharp, lower quality, and optional resizing
+          await sharp(imageBuffer)
+            .resize({ width: 800 }) // Optional resizing, e.g., to 800px width
+            .webp({ quality: 50 }) // Set quality lower for greater compression
+            .toFile(webpFilePath);
+
           fs.unlinkSync(file.path); // Remove original file after processing
 
-          // Add processed image URL in the exact order of the uploaded files
+          // Add processed image URL
           variant.images.push({
             url: `/images/${webpFileName}`,
             description: "",
