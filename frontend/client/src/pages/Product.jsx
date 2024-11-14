@@ -24,8 +24,7 @@ const Product = ({ loggedIn }) => {
   let [currColor, setCurrColor] = useState("black");
   let [active, setActive] = useState("all");
   const { allProducts: products } = useSelector((state) => state.products);
-  const [isLoaded, setIsLoaded] = useState(false);
-  
+
   const handleChange = (e) => {
     setQuantity(+e.target.value);
   };
@@ -182,6 +181,7 @@ const Product = ({ loggedIn }) => {
                             color: currColor,
                             size: document.querySelector("#size").value,
                             quantity,
+                            price: product.price,
                           })
                         );
                         toast.success("Added To Cart");
@@ -208,10 +208,13 @@ const Product = ({ loggedIn }) => {
                         );
                         dispatch(
                           addToCart({
+                            name:product.name,
                             id,
                             color: currColor,
                             size: document.querySelector("#size").value,
                             quantity,
+                            image: product.colorVariants[color].images[0].url,
+                            price: product.price,
                           })
                         );
                         navigate("/order");

@@ -117,7 +117,7 @@ const ProductDisplay = () => {
                     sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 1200px"
                     src={`${config.BASE_URL}${product.colorVariants[0].images[0].url}`}
                     alt={`${product.category}-image`}
-                    loading={index > 3 ? "lazy" : "eager"}
+                    loading={index > 3 ? "lazy" : "none"}
                     onLoad={() => setIsLoaded(true)}
                     width="640"
                     height="360"

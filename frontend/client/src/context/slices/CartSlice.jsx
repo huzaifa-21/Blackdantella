@@ -6,6 +6,7 @@ export const fetchCartItems = createAsyncThunk(
   "cart/fetchCartItems",
   async () => {
     const response = await axiosInstance.get(`/api/cart/`); // Update with your actual API endpoint
+    console.log(response.data.data)
     return response.data.data; // Assuming response.data contains the cart items
   }
 );
@@ -31,6 +32,7 @@ const CartSlice = createSlice({
         state.items[state.items.indexOf(theProduct)] = {
           ...theProduct,
           quantity: theProduct.quantity + action.payload.quantity,
+          
         };
       } else {
         state.items.push(action.payload);

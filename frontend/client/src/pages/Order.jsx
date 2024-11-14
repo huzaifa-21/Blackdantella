@@ -4,7 +4,7 @@ import validator from "validator";
 import axiosInstance from "../utils/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearCart } from "../context/slices/CartSlice";
+import { clearCart, fetchCartItems } from "../context/slices/CartSlice";
 import Swal from "sweetalert2";
 import { fetchUserProfile } from "../context/slices/userSlice";
 import { Helmet } from "react-helmet";
@@ -48,12 +48,23 @@ const Order = () => {
   ];
   const dispatch = useDispatch();
   const { profile, status } = useSelector((state) => state.user);
+  const { items: cart, status: cartStatus } = useSelector(
+    (state) => state.cart
+  );
 
   useEffect(() => {
-    if ( localStorage.getItem("accessToken")) {
+    if (localStorage.getItem("accessToken")) {
       dispatch(fetchUserProfile());
     }
-  }, []);
+    if (cartStatus === "succeeded") {
+      let totalAmount = 0;
+      cart.forEach((item) => {
+        totalAmount += +item.price.toFixed(2) * +item.quantity;
+      });
+      setTotal(+totalAmount.toFixed(2));
+      setCartData(cart);
+    }
+  }, [cartStatus]);
 
   useEffect(() => {
     if (profile) {
@@ -74,27 +85,6 @@ const Order = () => {
 
   const countryData = "United Arab Emirates"; // Use local countries data
   const [phonePrefix, setPhonePrefix] = useState(""); // Store the phone prefix (dial code)
-
-  useEffect(() => {
-    const fetchCart = async () => {
-      const response = await axiosInstance.get("/api/users/profile");
-      if (response.data.success) {
-        // const items = response.data.user.cartdata;
-        const cart = response.data.user.cartdata.filter(
-          (item) => !(item.name === undefined)
-        );
-        setCartData(cart);
-        let totalAmount = 0;
-        cart.forEach((item) => {
-          totalAmount += +item.price.toFixed(2) * +item.quantity;
-        });
-        setTotal(+totalAmount.toFixed(2));
-      } else {
-        console.log(response.data);
-      }
-    };
-    fetchCart();
-  }, []);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -400,7 +390,7 @@ const Order = () => {
           <h2 className="payment-head">Cart Totals</h2>
           <div className="payment-subtotal">
             <span>Subtotal</span>
-            <span>{total} AED</span>
+            <span>{total > 0 ? `${total} AED` : "...calculating"} </span>
           </div>
           <div className="payment-fee">
             <span>Delivery Fee</span>

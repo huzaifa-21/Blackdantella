@@ -28,14 +28,14 @@ import { fetchCartItems } from "./context/slices/CartSlice";
 const App = () => {
   const [loggedIn, setLogedIn] = useState(false);
   const dispatch = useDispatch();
-  const { profile} = useSelector((state) => state.user);
+  const { profile } = useSelector((state) => state.user);
 
   useEffect(() => {
     const jwt = localStorage.getItem("accessToken");
     dispatch(fetchAllProducts());
     if (jwt) {
-      dispatch(fetchUserProfile());
       dispatch(fetchCartItems());
+      dispatch(fetchUserProfile());
       setLogedIn(true);
       if (!profile) {
         localStorage.clear();

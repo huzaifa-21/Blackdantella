@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
+import { faBoxOpen, faCube } from "@fortawesome/free-solid-svg-icons";
 import { Helmet } from "react-helmet";
+import { fab } from "@fortawesome/free-brands-svg-icons";
 
 const Myorders = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
 
   const fetchOrders = async () => {
     const response = await axiosInstance.post("/api/order/userorders");
@@ -17,9 +18,14 @@ const Myorders = () => {
     fetchOrders();
   }, []);
 
-  if (!data || data.length < 1) {
+  if (!data) {
     return <div className="spinner"></div>;
   }
+
+  if ( data.length < 1) {
+    return <div className="no-products"><FontAwesomeIcon icon={faCube}/> No orders yet</div>;
+  }
+
   return (
     <>
       <Helmet>
