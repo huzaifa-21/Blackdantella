@@ -93,7 +93,7 @@ const ProductDisplay = () => {
           <div className="no-products">Coming soon</div>
         ) : (
           <div className="row">
-            {products.map((product) => (
+            {products.map((product,index) => (
               <div
                 key={product._id}
                 className="col-6 col-sm-6 col-md-4 col-lg-3 mb-4"
@@ -105,7 +105,7 @@ const ProductDisplay = () => {
                   <img
                     src={`${config.BASE_URL}${product.colorVariants[0].images[0].url}`}
                     alt={`${product.category}-image`}
-                    loading="lazy"
+                    loading={index > 3?"lazy":"eager"}
                   />
                   <span className="product-name">{product.name}</span>
                   <span className="product-price">{product.price} AED</span>

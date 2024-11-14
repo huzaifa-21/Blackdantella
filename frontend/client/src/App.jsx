@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles/main.scss"
+import "./styles/main.scss";
 import "normalize.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Route, Routes } from "react-router-dom";
@@ -19,23 +19,26 @@ import TermsAndCondition from "./pages/TermsAndCondition";
 import Privacy from "./pages/Privacy";
 import AboutUs from "./pages/AboutUs";
 import { useDispatch, useSelector } from "react-redux";
-// import { fetchCartItems } from "./context/slices/CartSlice";
 import { fetchUserProfile } from "./context/slices/userSlice";
 import { ToastContainer } from "react-toastify";
 import ScrollToTop from "./utils/ScrollToTop";
-
+import { fetchAllProducts } from "./context/slices/productSlice";
+import { fetchCartItems } from "./context/slices/CartSlice";
 
 const App = () => {
   const [loggedIn, setLogedIn] = useState(false);
-  const dispatch = useDispatch()
-  const {profile,status} = useSelector((state)=> state.user)
+  const dispatch = useDispatch();
+  const { profile} = useSelector((state) => state.user);
+
   useEffect(() => {
     const jwt = localStorage.getItem("accessToken");
+    dispatch(fetchAllProducts());
     if (jwt) {
+      dispatch(fetchUserProfile());
+      dispatch(fetchCartItems());
       setLogedIn(true);
-      dispatch(fetchUserProfile())
       if (!profile) {
-        localStorage.clear()
+        localStorage.clear();
       }
     }
   }, []);
@@ -54,7 +57,6 @@ const App = () => {
           backgroundColor: "#333", // Toast background color
           color: "#fff", // Text color
         }}
-        
       />
       <ScrollToTop />
       <Navbar loggedIn={loggedIn} />

@@ -11,26 +11,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCube } from "@fortawesome/free-solid-svg-icons";
-import { fetchProducts } from "../context/slices/productSlice";
 import { Helmet } from "react-helmet";
 
 const Cart = () => {
   let total = 0;
-  // let [cart, setCart] = useState([]);
   const { items: cart, status } = useSelector((state) => state.cart);
-  const { items: products } = useSelector((state) => state.products);
+  const { allProducts } = useSelector((state) => state.products);
   const { profile } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (
-      (status === "idle" && localStorage.getItem("accessToken")) ||
-      status === "succeeded"
-    ) {
-      dispatch(fetchCartItems());
-      dispatch(fetchProducts());
-    }
-  }, [dispatch]);
 
   async function removeFromDB(id, color, size) {
     try {
@@ -53,7 +41,7 @@ const Cart = () => {
     }
   }
 
-  if (status === "loading" || !products) {
+  if (status === "loading" || !allProducts) {
     return <div className="spinner"></div>;
   }
 
@@ -89,7 +77,7 @@ const Cart = () => {
             {cart.map((item, index) => {
               return (
                 <div className="item-box" key={index}>
-                  {products.map((product, index) => {
+                  {allProducts.map((product, index) => {
                     if (item.id === product._id) {
                       total += product.price * item.quantity;
                       return (

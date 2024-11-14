@@ -12,8 +12,8 @@ export const fetchCartItems = createAsyncThunk(
 
 const initialState = {
   items: [],
-  status: "idle",
-  error: null,
+  status:"idle",
+  error:null,
 };
 
 const CartSlice = createSlice({
