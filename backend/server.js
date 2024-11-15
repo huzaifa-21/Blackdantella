@@ -46,12 +46,10 @@ app.use(
 
 app.use(
   "/images",
-  express.static(path.join(__dirname, "uploads"), { maxAge: "1y", etag: false })
+  express.static(path.join(__dirname, "uploads"), { maxAge: "1y" })
 );
 
-app.use(
-  express.static(path.join(__dirname, "public"), { maxAge: "1y", etag: false })
-);
+app.use(express.static(path.join(__dirname, "public"), { maxAge: "1y" }));
 
 app.get("/robots.txt", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "robots.txt"));
@@ -59,8 +57,8 @@ app.get("/robots.txt", (req, res) => {
 
 app.use(
   compression({
-    level: 6,
-    threshold: 1024, // Compress responses larger than 1KB
+    level: 9,
+    threshold: 0, 
     filter: (req, res) => {
       if (req.headers["x-no-compression"]) {
         return false;
