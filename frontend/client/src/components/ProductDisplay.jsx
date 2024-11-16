@@ -199,8 +199,8 @@ const ProductDisplay = () => {
                     alt={`${product.category}-image`}
                     loading={index > 3 ? "lazy" : "none"}
                     onLoad={() => setIsLoaded(true)}
-                    width={100}
-                    height={200}
+                    width={274}
+                    height={365}
                     style={{
                       opacity: isLoaded ? 1 : 0,
                       transition: "opacity 0.5s ease-in-out",

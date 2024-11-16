@@ -126,6 +126,7 @@ const ProductForm = ({ setLogedIn }) => {
               id="name"
               value={product.name}
               onChange={handleInputChange}
+              required
             />
           </div>
           <div>
@@ -137,11 +138,13 @@ const ProductForm = ({ setLogedIn }) => {
               id="price"
               value={product.price}
               onChange={handleInputChange}
+              required
             />
           </div>
           <div>
             <label htmlFor="description">Description:</label>
             <textarea
+              required
               placeholder="Black scarve made of..."
               name="description"
               id="description"
@@ -173,6 +176,7 @@ const ProductForm = ({ setLogedIn }) => {
             <div>
               <label htmlFor="colorName">Color Name:</label>
               <input
+                required
                 placeholder="#0000ff OR red"
                 id="colorName"
                 type="text"

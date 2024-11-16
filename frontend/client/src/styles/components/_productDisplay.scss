@@ -63,14 +63,15 @@
         animation: fadeIn $mainTransition;
         cursor: pointer;
         transition: $mainTransition;
+        min-height: 393px;
         // box-shadow: inset 0 0 7px 1px rgba($color:  $mainColor, $alpha: 0.2);
         &:hover {
           transform: translateY(-5px);
         }
         img {
-          height: 100%;
-          // width: 263.992px;
+          height: auto;
           width: 100%;
+          aspect-ratio: auto 640 / 360;
         }
         .product-name {
           margin-top: 10px;

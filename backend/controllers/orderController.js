@@ -20,9 +20,9 @@ const placeOrder = async (req, res) => {
     await newOrder.save();
     await user.findByIdAndUpdate(userId, { cartdata: [] });
     /**
-      * ! this comment bellow is ready for when i add stripe account 
-    */
-    
+     * ! this comment bellow is ready for when i add stripe account
+     */
+
     // const line_items = items.map((item) => ({
     //   price_data: {
     //     currency: "aed",
@@ -91,7 +91,7 @@ const userOrder = async (req, res) => {
 // list orders for the admin panel
 const listOrders = async (req, res) => {
   try {
-    const orders = await Order.find({});
+    const orders = await Order.find({}).sort({ _id: -1 });
     res.json({ success: true, data: orders });
   } catch (error) {
     console.log(error);
