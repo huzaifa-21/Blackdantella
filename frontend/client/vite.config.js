@@ -6,12 +6,12 @@ import viteCompression from "vite-plugin-compression"; // Import the compression
 export default defineConfig({
   plugins: [
     react(),
-    viteCompression({
-      algorithm: "gzip", // Use gzip for compression (you can switch to 'brotliCompress' for Brotli)
-      ext: ".gz", // Add a .gz extension for the compressed files
-      threshold: 10240, // Only compress files larger than 10KB
-      deleteOriginFile: true, // Keep the original uncompressed files
-    }),
+    // viteCompression({
+    //   algorithm: "gzip", // Use gzip for compression (you can switch to 'brotliCompress' for Brotli)
+    //   ext: ".gz", // Add a .gz extension for the compressed files
+    //   threshold: 10240, // Only compress files larger than 10KB
+    //   deleteOriginFile: true, // Keep the original uncompressed files
+    // }),
   ],
   assetsInclude: ["**/*.jpeg", "**/*.jpg", "**/*.Jpeg", "**/*.JPG", "**/*.png"],
   build: {
