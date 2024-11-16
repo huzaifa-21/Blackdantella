@@ -3,7 +3,7 @@
   &::after {
     content: "";
     position: absolute;
-    display: block;
+    display: block !important;
     width: 1px;
     height: 1px;
     border-radius: 50%;

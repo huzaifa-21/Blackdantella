@@ -5,6 +5,7 @@
   @include balls(400, 400);
   overflow-x: hidden;
   margin-bottom: 50px;
+  overflow-x: hidden;
   .welcome-heading {
     font-family: "Lovers Quarrel", cursive;
     color: $mainColor;
@@ -13,6 +14,7 @@
     padding: 10px 0;
     margin: 20px auto;
     font-display: swap;
+    line-height: 1;
     @media (max-width: 576px) {
       font-size: 32px;
     }
