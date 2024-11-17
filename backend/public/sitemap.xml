@@ -15,21 +15,6 @@
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.blackdantella.com/policy</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.blackdantella.com/terms</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.blackdantella.com/cart</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
         <loc>https://www.blackdantella.com/account/login</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -40,17 +25,12 @@
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.blackdantella.com/profile</loc>
+        <loc>https://www.blackdantella.com/policy</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.blackdantella.com/order</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.blackdantella.com/myorders</loc>
+        <loc>https://www.blackdantella.com/terms</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>

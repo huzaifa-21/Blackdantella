@@ -2,5 +2,6 @@ User-agent: *
 Disallow: /profile
 Disallow: /order
 Disallow: /myorders
+Disallow: /cart
 
 Sitemap: https://www.blackdantella.com/sitemap.xml
