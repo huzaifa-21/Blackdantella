@@ -6,7 +6,6 @@ import config from "../config/config";
 import {
   fetchCartItems,
   removeFromCart,
-  selectCartLength,
 } from "../context/slices/CartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,6 +18,10 @@ const Cart = () => {
   const { allProducts } = useSelector((state) => state.products);
   const { profile } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCartItems())
+  },[])
 
   async function removeFromDB(id, color, size) {
     try {
