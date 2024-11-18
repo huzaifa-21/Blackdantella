@@ -170,7 +170,7 @@ const App = () => {
         localStorage.clear();
       }
     }
-  }, [dispatch, profile]);
+  }, [dispatch]);
 
   return (
     <>
