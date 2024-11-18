@@ -117,11 +117,12 @@
             }
             .number-container {
               display: inline-flex;
-              width: fit-content;
               position: relative;
               align-items: center;
+              width: 120px;
               input {
                 max-width: 120px;
+                width: 100%;
                 text-align: center;
               }
               svg {

@@ -8,6 +8,7 @@ import { clearCart, fetchCartItems } from "../context/slices/CartSlice";
 import Swal from "sweetalert2";
 import { fetchUserProfile } from "../context/slices/userSlice";
 import { Helmet } from "react-helmet";
+import { fetchAllProducts } from "../context/slices/productSlice";
 
 const Order = () => {
   const delivery = 25; // Delivery fee
@@ -150,6 +151,7 @@ const Order = () => {
             dispatch(clearCart());
             localStorage.removeItem("cart");
             navigator("/myorders");
+            dispatch(fetchAllProducts())
           } else {
             localStorage.removeItem("cart");
             location.reload();
