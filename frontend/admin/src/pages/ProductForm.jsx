@@ -176,7 +176,6 @@ const ProductForm = ({ setLogedIn }) => {
             <div>
               <label htmlFor="colorName">Color Name:</label>
               <input
-                required
                 placeholder="#0000ff OR red"
                 id="colorName"
                 type="text"
