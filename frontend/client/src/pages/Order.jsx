@@ -151,7 +151,6 @@ const Order = () => {
             dispatch(clearCart());
             localStorage.removeItem("cart");
             navigator("/myorders");
-            dispatch(fetchAllProducts())
           } else {
             localStorage.removeItem("cart");
             location.reload();

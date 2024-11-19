@@ -139,7 +139,6 @@ const App = () => {
   const [loggedIn, setLogedIn] = useState(false);
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.user);
-  
   // const location = useLocation();
 
   // const validRoutes = [

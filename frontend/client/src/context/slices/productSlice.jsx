@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import config from "../../config/config";
 
-// Define a threshold for when to re-fetch all products
 
 // Fetch Products Thunk
 export const fetchProducts = createAsyncThunk(
@@ -26,6 +25,7 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
+
 export const fetchAllProducts = createAsyncThunk(
   "products/fetchAllProducts",
   async () => {
