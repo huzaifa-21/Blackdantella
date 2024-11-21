@@ -58,7 +58,7 @@ app.get("/robots.txt", (req, res) => {
 app.use(
   compression({
     level: 9,
-    threshold: 0, 
+    threshold: 0,
     filter: (req, res) => {
       if (req.headers["x-no-compression"]) {
         return false;

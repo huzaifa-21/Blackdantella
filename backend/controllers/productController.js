@@ -51,7 +51,6 @@ const addProduct = async (req, res) => {
   try {
     const { name, price, description, category, colorVariants } = req.body;
     const colorVariantsData = JSON.parse(colorVariants);
-
     for (const variant of colorVariantsData) {
       if (!variant.color) {
         console.error("Color is missing for variant:", variant);
@@ -86,6 +85,7 @@ const addProduct = async (req, res) => {
             message: `File ${file.originalname} exceeds the maximum size limit of 5MB.`,
           });
         }
+        
         const sanitizedFilename = file.originalname.replace(/#/g, "");
         const webpFileName = `${Date.now()}-${sanitizedFilename
           .split(".")
@@ -95,7 +95,6 @@ const addProduct = async (req, res) => {
 
         try {
           let imageBuffer;
-
           if (
             file.mimetype === "image/heic" ||
             file.mimetype === "image/heif"
@@ -108,15 +107,12 @@ const addProduct = async (req, res) => {
           } else {
             imageBuffer = fs.readFileSync(file.path);
           }
-
           // Compress with sharp, lower quality, and optional resizing
           await sharp(imageBuffer)
             .resize({ width: 800 }) // Optional resizing, e.g., to 800px width
             .webp({ quality: 50 }) // Set quality lower for greater compression
             .toFile(webpFilePath);
-
           fs.unlinkSync(file.path); // Remove original file after processing
-
           // Add processed image URL
           variant.images.push({
             url: `/images/${webpFileName}`,
@@ -127,7 +123,6 @@ const addProduct = async (req, res) => {
           console.error(`Error converting image: ${err.message}`);
         }
       }
-
       variant.sizes = variant.sizes.filter((size) => size.checked);
     }
 

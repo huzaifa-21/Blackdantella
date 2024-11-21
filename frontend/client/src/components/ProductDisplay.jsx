@@ -23,7 +23,6 @@ const ProductDisplay = () => {
   const limit = 12;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoaded, setIsLoaded] = useState(false);
 
   // Get product data and total from Redux
   const {
@@ -54,20 +53,6 @@ const ProductDisplay = () => {
     setCategory(newCategory);
     setPage(1); // Reset to page 1 when category changes
   };
-
-  // const renderPaginationBullets = () => {
-  //   if (totalPages < 1) return null; // Don't render pagination if only one page
-
-  //   return Array.from({ length: totalPages }, (_, i) => (
-  //     <span
-  //       key={i + 1}
-  //       className={`pagination-bullet ${i + 1 === page ? "active" : ""}`}
-  //       onClick={() => handlePageChange(i + 1)}
-  //     >
-  //       {i + 1}
-  //     </span>
-  //   ));
-  // };
 
   const renderPaginationBullets = () => {
     if (totalPages < 1) return null;
@@ -185,28 +170,13 @@ const ProductDisplay = () => {
                   className="product"
                   onClick={() => navigate(`/product/${product._id}`)}
                 >
-                  {!isLoaded && (
-                    <img
-                      src="https://placehold.co/600x800?text=image"
-                      className="image-loading"
-                      style={{ filter: "blur(3px)", zIndex: 1 }}
-                      width={100}
-                      height={300}
-                    />
-                  )}
                   <img
                     src={`${config.BASE_URL}${product.colorVariants[0].images[0].url}`}
                     alt={`${product.category}-image`}
                     loading={index > 3 ? "lazy" : "none"}
-                    onLoad={() => setIsLoaded(true)}
                     width={100}
                     height={300}
-                    style={{
-                      opacity: isLoaded ? 1 : 0,
-                      transition: "opacity 0.5s ease-in-out",
-                    }}
                   />
-
                   <span className="product-name">{product.name}</span>
                   <span className="product-price">{product.price} AED</span>
                   {isProductInStock(product) ? (
