@@ -58,7 +58,7 @@ app.get("/robots.txt", (req, res) => {
 app.use(
   compression({
     level: 9,
-    threshold: 0,
+    threshold: 0, 
     filter: (req, res) => {
       if (req.headers["x-no-compression"]) {
         return false;
@@ -78,7 +78,7 @@ app.use("/api/order", orderRouter);
 app.options(
   "*",
   cors({
-    origin: ["https://admin.blackdantella.com"],
+    origin: ["https://admin.blackdantella.com","https://www.blackdantella.com"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
