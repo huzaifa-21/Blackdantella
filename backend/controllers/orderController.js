@@ -2,9 +2,13 @@ import Order from "../models/orderModel.js";
 import Stripe from "stripe";
 import User from "../models/userModel.js";
 import Product from "../models/productModel.js";
-import sgMail from "@sendgrid/mail";
+import Brevo from "@getbrevo/brevo";
 
-sgMail.setApiKey(process.env.EMAIL_ID);
+const client = new Brevo.TransactionalEmailsApi();
+client.setApiKey(
+  Brevo.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.EMAIL_ID
+);
 
 const placeOrder = async (req, res) => {
   try {
@@ -63,17 +67,19 @@ const placeOrder = async (req, res) => {
     await User.findByIdAndUpdate(userId, { cartdata: [] });
 
     // Send notification email to the admin
-    const adminEmailContent = {
-      to: "blackdantella@gmail.com",
-      from: "huzaifasalah9@gmail.com", // Replace with your verified sender email
-      subject: "New Order Notification",
-      html: `
+    const sendEmail = async () => {
+      try {
+        const response = await client.sendTransacEmail({
+          sender: { email: "huzaifasalah9@gmail.com", name: "Blackdantella" },
+          to: [{ email: "blackdantella@gmail.com", name: "Blackdantella" }],
+          subject: "Order Notification",
+          htmlContent: `
         <h1>New Order Received</h1>
         <p><strong>Order ID:</strong> ${newOrder._id}</p>
         <p><strong>Amount:</strong> ${amount} AED</p>
         <p><strong>Address:</strong> ${address.address}, ${address.city}, ${
-        address.country
-      }</p>
+            address.country
+          }</p>
         <h3>Order Items:</h3>
         <ul>
           ${items
@@ -84,13 +90,14 @@ const placeOrder = async (req, res) => {
             .join("")}
         </ul>
       `,
+        });
+      } catch (error) {
+        console.error("Failed to send email:", error);
+      }
     };
 
-    try {
-      await sgMail.send(adminEmailContent);
-    } catch (emailError) {
-      console.error("Email sending failed:", emailError.message);
-    }
+    sendEmail();
+
 
     res.json({ success: true, message: "Order placed and email sent" });
   } catch (error) {
