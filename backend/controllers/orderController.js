@@ -91,6 +91,7 @@ const placeOrder = async (req, res) => {
         </ul>
       `,
         });
+        console.log("Email sent:", response);
       } catch (error) {
         console.error("Failed to send email:", error);
       }
