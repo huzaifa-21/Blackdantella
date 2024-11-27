@@ -104,6 +104,10 @@ const Login = ({ setLogedIn }) => {
           rel="canonical"
           href="https://www.blackdantella.com/account/login"
         />
+        <meta
+          name="description"
+          content="Log in to your account to access exclusive features and manage your preferences. Enjoy a seamless and secure login experience."
+        />
       </Helmet>
       <Container>
         <form className="login" onSubmit={handleSubmit} noValidate>

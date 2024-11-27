@@ -7,6 +7,10 @@ const AboutUs = () => {
       <Helmet>
         <title>About us</title>
         <link link rel="canonical" href="https://www.blackdantella.com/about" />
+        <meta
+          name="description"
+          content="Step into the world of Blackdantella—where fashion meets empowerment! Uncover the artistry of handmade hijabs, scarves, and accessories designed to elevate your style and celebrate your individuality. Explore the magic behind our creations!"
+        />
       </Helmet>
       <div className="about-us">
         <Container>

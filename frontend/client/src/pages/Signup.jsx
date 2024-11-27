@@ -119,6 +119,10 @@ const Signup = ({ setLogedIn }) => {
           rel="canonical"
           href="https://www.blackdantella.com/account/register"
         />
+        <meta
+          name="description"
+          content="Create an account to get started with our services. Join us today for a personalized and hassle-free experience"
+        />
       </Helmet>
       <Container>
         <form className="sign-up" onSubmit={handleSubmit} noValidate>

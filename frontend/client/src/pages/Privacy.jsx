@@ -8,6 +8,10 @@ const Privacy = () => {
       <Helmet>
         <title>Privacy Policy</title>
         <link rel="canonical" href="https://www.blackdantella.com/policy" />
+        <meta
+          name="description"
+          content="Review our privacy policy to learn how we collect, use, and protect your data. Your privacy is our top priority."
+        />
       </Helmet>
       <div className="privacy-policy">
         <Container>

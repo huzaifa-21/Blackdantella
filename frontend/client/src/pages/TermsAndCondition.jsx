@@ -9,6 +9,10 @@ const TermsAndCondition = () => {
       <Helmet>
         <title>Terms and Conditions</title>
         <link rel="canonical" href="https://www.blackdantella.com/terms" />
+        <meta
+          name="description"
+          content="Read our terms and conditions to understand the rules and guidelines for using our services. Stay informed about your rights and responsibilities."
+        />
       </Helmet>
       <div className="terms">
         <Container>
