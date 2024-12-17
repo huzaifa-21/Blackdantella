@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Products from "./pages/Products";
 import Orders from "./pages/Orders";
 import axiosInstance from "./utils/axiosInstance";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [loggedIn, setLogedIn] = useState(false);
@@ -30,6 +31,9 @@ function App() {
 
   return (
     <>
+      <ToastContainer
+        
+      />
       <Navbar />
       <div className="app-content">
         <Sidebar />

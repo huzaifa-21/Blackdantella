@@ -4,6 +4,8 @@ import { faArrowDownLong } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "react-bootstrap";
 import axiosInstance from "../utils/axiosInstance";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
+
 const ProductForm = ({ setLogedIn }) => {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({
@@ -106,7 +108,10 @@ const ProductForm = ({ setLogedIn }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response)
+      const data = response.data;
+      if (data.success) {
+        toast.success("Porduct Added Successfully");
+      }
       setProducts([...products, response.data.data]);
     } catch (error) {
       console.error(error);
