@@ -17,6 +17,10 @@ body {
   color: white;
 }
 
+html,body {
+  overscroll-behavior: none;
+}
+
 li {
   list-style: none;
 }
