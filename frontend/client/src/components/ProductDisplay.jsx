@@ -177,12 +177,23 @@ const ProductDisplay = () => {
                     width={100}
                     height={300}
                   />
-                  <span className="product-name">{product.name}</span>
-                  <span className="product-price">{product.price} AED</span>
+                  <span className="product-name ">{product.name}</span>
+                  {/* add the discount effect to this line  */}
+                  {/*  */}
+                  <span
+                    className={`product-price d-inline me-2 ${
+                      product.discount > 0 && "opacity-50 text-decoration-line-through"
+                    }`}
+                  >
+                    {product.price} AED
+                  </span>
+                  {product.discount > 0 && (
+                    <span className="fs-5">{product.price - 3} AED</span>
+                  )}
                   {isProductInStock(product) ? (
-                    <span className="in-stock">In stock</span>
+                    <span className="in-stock d-block">In stock</span>
                   ) : (
-                    <span className="sold-out">Sold out</span>
+                    <span className="sold-out d-block">Sold out</span>
                   )}
                 </div>
               </div>

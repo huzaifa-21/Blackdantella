@@ -49,7 +49,7 @@ const getProducts = async (req, res) => {
 
 const addProduct = async (req, res) => {
   try {
-    const { name, price, description, category, colorVariants } = req.body;
+    const { name, price, description, category, colorVariants,discount } = req.body;
     const colorVariantsData = JSON.parse(colorVariants);
     for (const variant of colorVariantsData) {
       if (!variant.color) {
@@ -131,6 +131,7 @@ const addProduct = async (req, res) => {
     const newProduct = new Product({
       name,
       price,
+      discount,
       description,
       category,
       colorVariants: colorVariantsData,

@@ -11,6 +11,7 @@ const ProductForm = ({ setLogedIn }) => {
   const [product, setProduct] = useState({
     name: "",
     price: "",
+    discount:"",
     description: "",
     category: "",
     colorVariants: [],
@@ -88,6 +89,7 @@ const ProductForm = ({ setLogedIn }) => {
 
     formData.append("name", product.name);
     formData.append("price", product.price);
+    formData.append("discount",product.discount | 0) 
     formData.append("description", product.description);
     formData.append("category", product.category || "scrunchies");
     formData.append("colorVariants", JSON.stringify(product.colorVariants));
@@ -147,6 +149,17 @@ const ProductForm = ({ setLogedIn }) => {
             />
           </div>
           <div>
+            <label htmlFor="discount">Discount</label>
+            <input
+              placeholder="10"
+              type="number"
+              name="discount"
+              id="discount"
+              value={product.discount}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
             <label htmlFor="description">Description:</label>
             <textarea
               required
@@ -172,6 +185,7 @@ const ProductForm = ({ setLogedIn }) => {
                 {/* <option value="prayer-veil">prayer-veil</option> */}
                 <option value="hijabs">Hijabs</option>
                 <option value="national-day">national-day</option>
+                <option value="sales">sales</option>
               </select>
               <FontAwesomeIcon icon={faArrowDownLong} />
             </div>

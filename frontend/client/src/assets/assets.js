@@ -1,15 +1,15 @@
 import letter_logo from "./letter-logo.svg";
 import b_logo from "./b-logo.svg";
 import logo from "./logo.svg";
-import scrunches_icon from "./scrunches-icon.svg";
-import bandas_icon from "./bandas-icon.svg";
-import prayer_icon from "./prayer-icon.svg";
-import hijab_icon from "./hijab-icon.svg";
-import accessories_icon from "./accessorie-icon.svg";
-import national_day from "./final.svg";
 import apple_logo from "./apple-icon.svg";
 import google_logo from "./google-icon.svg";
 import black_logo from "./black-logo.svg";
+import scrunches_icon from "./scrunches-icon.svg";
+import bandas_icon from "./bandas-icon.svg";
+import hijab_icon from "./hijab-icon.svg";
+import accessories_icon from "./accessorie-icon.svg";
+import national_day from "./final.svg";
+import sales_icon from "./sales.svg";
 
 export const assets = {
   logo,
@@ -21,9 +21,13 @@ export const assets = {
 };
 
 export const category_items = [
-   {
+  {
     img: national_day,
-    name:"national-day"
+    name: "national-day",
+  },
+  {
+    img: sales_icon,
+    name:"sales"
   },
   {
     img: scrunches_icon,
@@ -45,5 +49,5 @@ export const category_items = [
     img: hijab_icon,
     name: "hijabs",
   },
- 
+  
 ];

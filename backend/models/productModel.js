@@ -36,6 +36,7 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    discount:Number,
     description: {
       type: String,
       required: true,
