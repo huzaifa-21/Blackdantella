@@ -112,7 +112,7 @@ const Cart = () => {
                               {item.quantity}
                             </span>
                             <span className="item-price">
-                              {product.price * item.quantity}AED
+                              {product.price * item.quantity - product.discount}AED
                             </span>
                             <span
                               style={{

@@ -128,7 +128,7 @@ const Product = ({ loggedIn }) => {
                   <h3 className="product-name">{product.name}</h3>
                   <div className="price-container">
                     <label htmlFor="">Price</label>
-                    <span className="price">{product.price} AED</span>
+                    <span className="price">{product?.discount?product.price - product.discount:product.price} AED</span>
                     <span className="discount"></span>
                   </div>
                   <div className="size-container">
@@ -232,7 +232,7 @@ const Product = ({ loggedIn }) => {
                           selectedSize,
                           quantity,
                           product.colorVariants[color].images[0].url,
-                          product.price
+                          product.price - product?.discount
                         );
                         dispatch(
                           addToCart({
@@ -240,7 +240,7 @@ const Product = ({ loggedIn }) => {
                             color: currColor,
                             size: selectedSize,
                             quantity,
-                            price: product.price,
+                            price: product.price - product?.discount,
                           })
                         );
                         toast.success("Added To Cart");

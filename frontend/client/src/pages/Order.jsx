@@ -399,7 +399,7 @@ const Order = () => {
           </div>
           <div className="payment-total">
             <span>Total</span>
-            <span>{total + delivery} AED</span>
+            <span>{total + delivery } AED</span>
           </div>
           <button
             disabled={total && profile ? false : true}
