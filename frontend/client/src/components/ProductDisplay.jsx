@@ -182,13 +182,13 @@ const ProductDisplay = () => {
                   {/*  */}
                   <span
                     className={`product-price d-inline me-2 ${
-                      product.discount > 0 && "opacity-50 text-decoration-line-through"
+                      +product.discount > 0 && "opacity-50 text-decoration-line-through"
                     }`}
                   >
                     {product.price} AED
                   </span>
                   {product.discount > 0 && (
-                    <span className="fs-5">{product.price - 3} AED</span>
+                    <span className="fs-5">{+product.price - product.discount} AED</span>
                   )}
                   {isProductInStock(product) ? (
                     <span className="in-stock d-block">In stock</span>

@@ -9,12 +9,12 @@ import Products from "./pages/Products";
 import Orders from "./pages/Orders";
 import axiosInstance from "./utils/axiosInstance";
 import { ToastContainer } from "react-toastify";
+import ProductInfo from "./pages/ProductInfo";
 
 function App() {
   const [loggedIn, setLogedIn] = useState(false);
   const checkAdmin = async () => {
     const response = await axiosInstance.get("/api/users/profile");
-    console.log(response.data.user.role);
     if (response.data.user.role == "admin") {
       setLogedIn(true);
     } else {
@@ -40,8 +40,9 @@ function App() {
         <div className="home">
           <Routes>
             <Route path="/" element={<ProductForm setLogedIn={setLogedIn} />} />
-            <Route path="/products" element={<Products />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<ProductInfo />} />
           </Routes>
         </div>
       </div>

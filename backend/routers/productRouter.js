@@ -5,6 +5,7 @@ import {
   getAllProducts,
   getProducts,
   removeProduct,
+  updateProduct,
 } from "../controllers/productController.js";
 import verifyToken from "../middlewares/verifytoken.js";
 import checkRole from "../middlewares/checkRole.js";
@@ -33,5 +34,6 @@ router.post(
 router.get("/", getProducts);
 router.get("/all", getAllProducts);
 router.post("/remove", verifyToken, checkRole("admin"), removeProduct);
+router.post("/edit",updateProduct)
 
 export default router;

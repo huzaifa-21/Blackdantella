@@ -20,7 +20,7 @@ import heicConvert from "heic-convert"; // Import heic-convert for HEIC files
 
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find().sort({createdAt:-1});
+    const products = await Product.find().sort({ createdAt: -1 });
     res.status(200).send({ success: true, data: products });
   } catch (error) {
     res.status(400).send({ success: false, message: error.message });
@@ -49,7 +49,8 @@ const getProducts = async (req, res) => {
 
 const addProduct = async (req, res) => {
   try {
-    const { name, price, description, category, colorVariants,discount } = req.body;
+    const { name, price, description, category, colorVariants, discount } =
+      req.body;
     const colorVariantsData = JSON.parse(colorVariants);
     for (const variant of colorVariantsData) {
       if (!variant.color) {
@@ -85,7 +86,7 @@ const addProduct = async (req, res) => {
             message: `File ${file.originalname} exceeds the maximum size limit of 5MB.`,
           });
         }
-        
+
         const sanitizedFilename = file.originalname.replace(/#/g, "");
         const webpFileName = `${Date.now()}-${sanitizedFilename
           .split(".")
@@ -146,6 +147,32 @@ const addProduct = async (req, res) => {
   }
 };
 
+const updateProduct = async (req, res) => {
+  const { id, name, price, discount, category,description } = req.body;
+  const product = await Product.find({ _id: id });
+
+  if (!product) {
+    return res.json({ success: false, data: [], message: "no product found" });
+  }
+
+  const updatedProduct = await Product.updateOne(
+    { _id: id },
+    {
+      name,
+      price,
+      discount,
+      category,
+      description,
+    }
+  );
+
+  res.json({
+    success: true,
+    data: updatedProduct,
+    message: "product updated successfully ",
+  });
+};
+
 const removeProduct = async (req, res) => {
   try {
     const { id } = req.body;
@@ -186,4 +213,10 @@ const removeProduct = async (req, res) => {
   }
 };
 
-export { addProduct, getProducts, removeProduct,getAllProducts };
+export {
+  addProduct,
+  getProducts,
+  removeProduct,
+  getAllProducts,
+  updateProduct,
+};

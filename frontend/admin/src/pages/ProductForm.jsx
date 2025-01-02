@@ -116,7 +116,6 @@ const ProductForm = ({ setLogedIn }) => {
       }
       setProducts([...products, response.data.data]);
     } catch (error) {
-      console.error(error);
     }
   };
 

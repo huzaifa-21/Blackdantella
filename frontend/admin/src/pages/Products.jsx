@@ -3,9 +3,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import config from "../config/config";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const navigator = useNavigate();
   function filterProduct(id) {
     const filterdProducts = products.filter((item) => !(item._id === id));
     setProducts(filterdProducts);
@@ -16,11 +18,8 @@ const Products = () => {
         id,
       });
       if (response.data.success) {
-        console.log(response.data.message);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   async function getProducts() {
@@ -28,11 +27,8 @@ const Products = () => {
       const response = await axiosInstance.get("api/products/all");
       if (response.data.success) {
         setProducts(response.data.data);
-        console.log(response.data.data[0]);
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   }
 
   useEffect(() => {
@@ -47,7 +43,11 @@ const Products = () => {
     <div className="products">
       {products.map((product, index) => {
         return (
-          <div className="product" key={index}>
+          <div
+            className="product"
+            onClick={() => navigator(`/products/${product._id}`)}
+            key={index}
+          >
             <img
               src={config.BASE_URL + product.colorVariants[0].images[0].url}
               alt=""
@@ -67,20 +67,17 @@ const Products = () => {
             <div className="color-holder">
               {product.colorVariants.map((item, index) => {
                 return (
-                  <div className="inner-color-holder">
+                  <div className="inner-color-holder" key={index}>
                     <span
                       className="color"
-                      key={index}
                       style={{ backgroundColor: `${item.color}` }}
                     ></span>
                     <span>{item.color}</span>
                     <span className="size">
                       {item.sizes.map((size, index) => {
                         return (
-                          <div className="size-container">
-                            <span className="size-name" key={index}>
-                              {size.size}:
-                            </span>
+                          <div className="size-container" key={index}>
+                            <span className="size-name">{size.size}:</span>
                             <span className="size-quantity">
                               {size.quantity}
                             </span>
@@ -92,9 +89,7 @@ const Products = () => {
                 );
               })}
             </div>
-            <div className="price">
-              {product.price} AED
-            </div>
+            <div className="price">{product.price} AED</div>
           </div>
         );
       })}

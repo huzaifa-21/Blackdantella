@@ -1,0 +1,36 @@
+.product-info {
+  form {
+    > div {
+      display: flex;
+      gap: 50px;
+      margin-bottom: 20px;
+      label {
+        width: 50px;
+        cursor: pointer;
+      }
+    }
+    button {
+      padding: 10px 15px;
+      border-radius: 5px;
+      width: 200px;
+      margin-top: 50px;
+      transition-duration: $mainTransition ;
+      background: $ballsColor;
+      &:active,
+      &.clicked {
+        background: green ;
+      }
+    }
+  }
+  select {
+    padding: 8px 15px;
+    background-color: transparent;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  textarea {
+    min-height: 300px;
+    width: 100%;
+  }
+}
