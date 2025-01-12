@@ -23,7 +23,6 @@ const addToCart = async (req, res) => {
   } else {
     // Otherwise, add it as a new item
     cartData.push({ id, color, size, quantity, image, price, name });
-    console.log(cartData)
   }
 
   // Update the user's cart in the database

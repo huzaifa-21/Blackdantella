@@ -7,11 +7,12 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 const ProductForm = ({ setLogedIn }) => {
+  const [uploaded, setUploaded] = useState(false);
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({
     name: "",
     price: "",
-    discount:"",
+    discount: "",
     description: "",
     category: "",
     colorVariants: [],
@@ -89,7 +90,7 @@ const ProductForm = ({ setLogedIn }) => {
 
     formData.append("name", product.name);
     formData.append("price", product.price);
-    formData.append("discount",product.discount | 0) 
+    formData.append("discount", product.discount | 0);
     formData.append("description", product.description);
     formData.append("category", product.category || "scrunchies");
     formData.append("colorVariants", JSON.stringify(product.colorVariants));
@@ -113,16 +114,16 @@ const ProductForm = ({ setLogedIn }) => {
       const data = response.data;
       if (data.success) {
         toast.success("Porduct Added Successfully");
+        setUploaded(false);
       }
       setProducts([...products, response.data.data]);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   return (
     <div className="add-product">
       <Container>
-        <form onSubmit={handleSubmit}>
+        <form>
           <div>
             <label htmlFor="name"> Name</label>
             <input
@@ -253,19 +254,31 @@ const ProductForm = ({ setLogedIn }) => {
               Add Color Variant
             </button>
           </div>
-          <button type="submit">Submit Product</button>
+          {uploaded ? (
+            <span className="uploading spinner"></span>
+          ) : (
+            <button
+              type="submit"
+              onClick={(e) => {
+                handleSubmit(e);
+                setUploaded(true);
+              }}
+            >
+              Submit Products
+            </button>
+          )}
         </form>
       </Container>
       <button
-        onClick={() =>
+        onClick={() => {
           setProduct({
             name: "",
             price: "",
             description: "",
             category: "",
             colorVariants: [],
-          })
-        }
+          });
+        }}
       >
         Add New Product
       </button>
