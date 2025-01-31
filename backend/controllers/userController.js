@@ -160,8 +160,13 @@ const refresh = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     const users = await User.find({}, { __v: false, password: false });
-
-    res.status(200).send({ success: true, users });
+    res
+      .status(200)
+      .send({
+        success: true,
+        data: users,
+        message: "User fetched successfully",
+      });
   } catch (error) {
     res.status(500).send({ success: false, message: error.message });
   }
@@ -192,7 +197,6 @@ const getUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   const { id } = req.params;
-
   try {
     const user = await User.findById(id);
     if (!user) {

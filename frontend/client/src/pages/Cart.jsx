@@ -3,10 +3,7 @@ import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import config from "../config/config";
-import {
-  fetchCartItems,
-  removeFromCart,
-} from "../context/slices/CartSlice";
+import { fetchCartItems, removeFromCart } from "../context/slices/CartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCube } from "@fortawesome/free-solid-svg-icons";
@@ -20,8 +17,8 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCartItems())
-  },[])
+    dispatch(fetchCartItems());
+  }, []);
 
   async function removeFromDB(id, color, size) {
     try {
@@ -112,7 +109,11 @@ const Cart = () => {
                               {item.quantity}
                             </span>
                             <span className="item-price">
-                              {product.price * item.quantity - product.discount}AED
+                              {product.discount
+                                ? product.price * item.quantity -
+                                  product.discount
+                                : product.price * item.quantity}
+                              AED
                             </span>
                             <span
                               style={{

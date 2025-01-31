@@ -21,6 +21,6 @@ userRouter.get("/profile", verifyToken, getUser);
 userRouter.post("/register", register);
 userRouter.post("/login", login);
 userRouter.post("/refresh", refresh); // Endpoint to refresh the token
-userRouter.post("/google-login",googleLogin)
+userRouter.post("/google-login", googleLogin);
 
 export default userRouter;

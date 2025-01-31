@@ -33,8 +33,8 @@ const Product = ({ loggedIn }) => {
   // Initialize color and size
   useEffect(() => {
     dispatch(fetchAllProducts());
-  }, [])
-  
+  }, []);
+
   useEffect(() => {
     if (products) {
       const product = products.find((product) => product._id === id);
@@ -91,7 +91,7 @@ const Product = ({ loggedIn }) => {
         image,
         price,
       });
-
+console.log(`price ${price}`)
       if (response.data.success) {
         return "added to cart";
       } else {
@@ -128,7 +128,12 @@ const Product = ({ loggedIn }) => {
                   <h3 className="product-name">{product.name}</h3>
                   <div className="price-container">
                     <label htmlFor="">Price</label>
-                    <span className="price">{product?.discount?product.price - product.discount:product.price} AED</span>
+                    <span className="price">
+                      {product?.discount
+                        ? product.price - product.discount
+                        : product.price}{" "}
+                      AED
+                    </span>
                     <span className="discount"></span>
                   </div>
                   <div className="size-container">
@@ -232,7 +237,9 @@ const Product = ({ loggedIn }) => {
                           selectedSize,
                           quantity,
                           product.colorVariants[color].images[0].url,
-                          product.price - product?.discount
+                          product.discount >=1
+                            ? product.price - product?.discount
+                            : product.price
                         );
                         dispatch(
                           addToCart({
@@ -240,7 +247,10 @@ const Product = ({ loggedIn }) => {
                             color: currColor,
                             size: selectedSize,
                             quantity,
-                            price: product.price - product?.discount,
+                            price:
+                              product.discount >= 1
+                                ? product.price - product?.discount
+                                : product.price,
                           })
                         );
                         toast.success("Added To Cart");

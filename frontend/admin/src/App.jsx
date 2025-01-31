@@ -10,6 +10,7 @@ import Orders from "./pages/Orders";
 import axiosInstance from "./utils/axiosInstance";
 import { ToastContainer } from "react-toastify";
 import ProductInfo from "./pages/ProductInfo";
+import Users from "./pages/Users";
 
 function App() {
   const [loggedIn, setLogedIn] = useState(false);
@@ -31,9 +32,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer
-        
-      />
+      <ToastContainer />
       <Navbar />
       <div className="app-content">
         <Sidebar />
@@ -43,6 +42,7 @@ function App() {
             <Route path="/orders" element={<Orders />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<ProductInfo />} />
+            <Route path="/users" element={<Users />} />
           </Routes>
         </div>
       </div>
