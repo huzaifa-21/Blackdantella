@@ -91,14 +91,12 @@ const Product = ({ loggedIn }) => {
         image,
         price,
       });
-console.log(`price ${price}`)
       if (response.data.success) {
         return "added to cart";
       } else {
         return response.data.message;
       }
     } catch (error) {
-      console.error("Error adding to cart:", error.message);
       return "Error adding cart";
     }
   };
