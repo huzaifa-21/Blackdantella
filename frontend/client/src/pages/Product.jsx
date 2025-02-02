@@ -4,9 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
+  faCheck,
+  faCopy,
   faDownLong,
+  faEllipsis,
+  faShareFromSquare,
   faUpLong,
 } from "@fortawesome/free-solid-svg-icons";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { Carousel } from "react-bootstrap";
 import config from "../config/config";
 import { isProductInStock } from "../components/ProductDisplay";
@@ -15,6 +20,11 @@ import { addToCart } from "../context/slices/CartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { fetchAllProducts } from "../context/slices/productSlice";
+import {
+  handleCopyToClipBoard,
+  handleShare,
+  handleShareOnWhatsApp,
+} from "../utils/HandleCopy";
 
 const Product = ({ loggedIn }) => {
   const { id } = useParams();
@@ -29,6 +39,8 @@ const Product = ({ loggedIn }) => {
   const [maxValue, setMaxValue] = useState(1); // New state for maximum quantity
 
   const { allProducts: products } = useSelector((state) => state.products);
+
+  const [copied, setCopied] = useState(false);
 
   // Initialize color and size
   useEffect(() => {
@@ -123,7 +135,31 @@ const Product = ({ loggedIn }) => {
                   </Carousel>
                 </div>
                 <div className="info">
-                  <h3 className="product-name">{product.name}</h3>
+                  <h3 className="product-name">
+                    {product.name}
+                    <div className="share-options">
+                      <FontAwesomeIcon icon={faShareFromSquare} />
+                      <ul>
+                        <li
+                          onClick={() => {
+                            handleCopyToClipBoard(product);
+                            setCopied(true);
+                            setTimeout(() => {
+                              setCopied(false);
+                            }, 1000);
+                          }}
+                        >
+                          <FontAwesomeIcon icon={copied ? faCheck : faCopy} />
+                        </li>
+                        <li onClick={() => handleShareOnWhatsApp(product)}>
+                          <FontAwesomeIcon icon={faWhatsapp} />
+                        </li>
+                        <li onClick={() => handleShare(product)}>
+                          <FontAwesomeIcon icon={faEllipsis} />
+                        </li>
+                      </ul>
+                    </div>
+                  </h3>
                   <div className="price-container">
                     <label htmlFor="">Price</label>
                     <span className="price">
@@ -235,7 +271,7 @@ const Product = ({ loggedIn }) => {
                           selectedSize,
                           quantity,
                           product.colorVariants[color].images[0].url,
-                          product.discount >=1
+                          product.discount >= 1
                             ? product.price - product?.discount
                             : product.price
                         );
